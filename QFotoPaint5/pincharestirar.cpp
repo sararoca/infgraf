@@ -64,3 +64,14 @@ void PincharEstirar::on_spinBox_2_valueChanged(int arg1)
     ui->horizontalSlider_2->setValue(arg1);
     ver_pinchar_estirar(nfoto, cx, cy, radio_efecto, grado_efecto);
 }
+
+void PincharEstirar::on_PincharEstirar_accepted()
+{
+    ver_pinchar_estirar(nfoto, cx, cy, radio_efecto, grado_efecto, true);
+    destroyWindow("Pinchar/estirar");
+}
+
+void PincharEstirar::on_PincharEstirar_rejected()
+{
+    destroyWindow("Pinchar/estirar");
+}

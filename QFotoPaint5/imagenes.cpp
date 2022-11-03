@@ -868,10 +868,51 @@ void ver_pinchar_estirar(int nfoto, int cx, int cy, double radio, double grado, 
     if(guardar)
     {
         res.copyTo(foto[nfoto].img);
+        mostrar(nfoto);
         foto[nfoto].modificada = true;
     }
 
 }
+
+//---------------------------------------------------------------------------
+
+//EFECTO DE ONDAS DE AGUA -> habria que añadir fase y frecuencia
+//void ver_pinchar_estirar(int nfoto, int cx, int cy, double radio, double grado, bool guardar)
+//{
+//    // Superficie
+//    Mat S(foto[nfoto].img.rows, foto[nfoto].img.cols, CV_32FC1);
+//    for (int y=0; y < S.rows; y++)
+//    {
+//        for (int x=0; x < S.cols; x++)
+//            S.at<float>(y, x) = sin(sqrt((x-cx)*(x-cx)+(y-cy)*(y-cy))/100.0+radio/100.0);
+//    }
+
+//    Mat Gx, Gy;
+//    Sobel(S, Gx, CV_32F, 1, 0, 3, grado, 0, BORDER_REFLECT);
+//    Sobel(S, Gy, CV_32F, 0, 1, 3, grado, 0, BORDER_REFLECT);
+
+//    multiply(S, Gx, Gx);
+//    multiply(S, Gy, Gy);
+//    for (int y=0; y < S.rows; y++)
+//    {
+//        for (int x=0; x < S.cols; x++)
+//        {
+//            Gx.at<float>(y, x) += x;
+//            Gy.at<float>(y, x) += y;
+//        }
+//    }
+//    Mat res;
+//    remap(foto[nfoto].img, res, Gx, Gy, INTER_LINEAR, BORDER_REFLECT);
+//    imshow("Pinchar/estirar", res);
+
+//    if(guardar)
+//    {
+//        res.copyTo(foto[nfoto].img);
+//        mostrar(nfoto);
+//        foto[nfoto].modificada = true;
+//    }
+
+//}
 
 //---------------------------------------------------------------------------
 

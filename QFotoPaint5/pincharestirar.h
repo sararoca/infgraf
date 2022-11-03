@@ -24,6 +24,10 @@ private slots:
 
     void on_spinBox_2_valueChanged(int arg1);
 
+    void on_PincharEstirar_accepted();
+
+    void on_PincharEstirar_rejected();
+
 private:
     Ui::PincharEstirar *ui;
 };
