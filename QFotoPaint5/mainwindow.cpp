@@ -17,6 +17,9 @@ using namespace cv;
 #include "suavizados.h"
 #include "video.h"
 #include "bajorelieve.h"
+#include "ajustelineal.h"
+#include "capturarvideo.h"
+#include "pincharestirar.h"
 
 QString FiltroImagen = "Todos los formatos (*.jpg *.jpeg *.jpe .jp2 *.tif *.tiff *.png *.gif *.bmp *.dib *.webp *.ppm);;Archivos JPG (*.jpg *.jpeg *.jpe);;Archivos TIF (*.tif *.tiff);;Archivos PNG (*.png);;Archivos GIF (*.gif);;Archivos BMP (*.bmp *.dib);;Otros (*.*)";
 
@@ -406,5 +409,38 @@ void MainWindow::on_actionBajo_relieve_triggered()
     if (foto_activa()!=-1 && primera_libre() != -1) {
         bajorelieve b(foto_activa()); //cambiar a mayuscula
         b.exec();
+    }
+}
+
+void MainWindow::on_actionAjuste_lineal_triggered()
+{
+    if (foto_activa()!=-1) {
+        ajustelineal al(foto_activa());
+        al.exec();
+    }
+}
+
+void MainWindow::on_actionCapturar_de_v_deo_triggered()
+{
+    QString nombre = QFileDialog::getOpenFileName(); //Ampliar para permitir extensiones
+    if (!nombre.isEmpty())
+    {
+        CapturarVideo cv(nombre);
+        if (cv.isOpened()) cv.exec();
+    }
+}
+
+void MainWindow::on_actionEscala_de_color_triggered()
+{
+    if (foto_activa()!=-1 && primera_libre() != -1) {
+        escala_color(foto_activa(), primera_libre());
+    }
+}
+
+void MainWindow::on_actionPichar_Estirar_triggered()
+{
+    if (foto_activa()!=-1) {
+        PincharEstirar pe(foto_activa());
+        pe.exec();
     }
 }

@@ -12,8 +12,17 @@ class PincharEstirar : public QDialog
     Q_OBJECT
 
 public:
-    explicit PincharEstirar(QWidget *parent = nullptr);
+    explicit PincharEstirar(int numfoto, QWidget *parent = nullptr);
     ~PincharEstirar();
+
+private slots:
+    void on_horizontalSlider_valueChanged(int value);
+
+    void on_horizontalSlider_2_valueChanged(int value);
+
+    void on_spinBox_valueChanged(int arg1);
+
+    void on_spinBox_2_valueChanged(int arg1);
 
 private:
     Ui::PincharEstirar *ui;

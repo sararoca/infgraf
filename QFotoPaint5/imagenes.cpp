@@ -396,24 +396,24 @@ Scalar ColorArcoIris ()
     Scalar colorActual = CV_RGB(255,0,0);
     static int estadoActual = 0;
     switch (estadoActual) {
-        case 0:
-            if (++colorActual.val[1] == 255) estadoActual=1;
-            break;
-        case 1:
-            if (--colorActual.val[2] == 0) estadoActual=2;
-            break;
-        case 2:
-            if (++colorActual.val[0] == 255) estadoActual=3;
-            break;
-        case 3:
-            if (--colorActual.val[1] == 0) estadoActual=4;
-            break;
-        case 4:
-            if (++colorActual.val[2] == 255) estadoActual=5;
-            break;
-        case 5:
-            if (--colorActual.val[0] == 0) estadoActual=0;
-            // break; no hace falta es el ultimo
+    case 0:
+        if (++colorActual.val[1] == 255) estadoActual=1;
+        break;
+    case 1:
+        if (--colorActual.val[2] == 0) estadoActual=2;
+        break;
+    case 2:
+        if (++colorActual.val[0] == 255) estadoActual=3;
+        break;
+    case 3:
+        if (--colorActual.val[1] == 0) estadoActual=4;
+        break;
+    case 4:
+        if (++colorActual.val[2] == 255) estadoActual=5;
+        break;
+    case 5:
+        if (--colorActual.val[0] == 0) estadoActual=0;
+        // break; no hace falta es el ultimo
 
     }
     return colorActual;
@@ -582,11 +582,11 @@ void callback (int event, int x, int y, int flags, void *_nfoto)
 
         // 2.6. Herramienta ARCOIRIS
     case HER_ARCOIRIS:
-            if (flags==EVENT_FLAG_LBUTTON)
-                cb_arco_iris(factual, x, y);
-            else
-                ninguna_accion(factual, x, y);
-            break;
+        if (flags==EVENT_FLAG_LBUTTON)
+            cb_arco_iris(factual, x, y);
+        else
+            ninguna_accion(factual, x, y);
+        break;
     }
     escribir_barra_estado();
 }
@@ -775,6 +775,106 @@ void ver_bajorelieve(int nfoto, double angulo, double grado, int fondo, bool gua
 }
 
 //---------------------------------------------------------------------------
+
+
+void ver_ajuste_lineal(int nfoto, double pmin, double pmax, bool guardar)
+{
+    Mat gris;
+    cvtColor(foto[nfoto].img, gris, COLOR_BGR2GRAY);
+    int canales[1] = {0};
+    int bins[1] = {256};
+    float rango[2] = {0, 256};
+    const float *rangos[] = {rango};
+    Mat hist;
+    calcHist(&gris, 1, canales, noArray(), hist, 1, bins, rangos);
+    normalize(hist, hist, 100, 0, NORM_L1); //NORM_L1 es la suma de todos los pixeles
+    double acum=0;
+    int vmin = 0;
+    for (; vmin < 256 && acum > pmin; vmin++)
+        acum+= hist.at<float>(vmin);
+    acum=0;
+    int vmax=255;
+    for (; vmax >= 0 && acum < pmax; vmax--)
+        acum+= hist.at<float>(vmax);
+    if (vmin >= vmax)vmax=vmin+1;
+    double a= 255.0/(vmax-vmin);
+    double b= -vmin*a;
+    Mat res;
+    foto[nfoto].img.convertTo(res, CV_8U, a, b);
+    imshow(foto[nfoto].nombre, res);
+    if (guardar) {
+        res.copyTo(foto[nfoto].img);
+        foto[nfoto].modificada= true;
+    }
+}
+
+//---------------------------------------------------------------------------
+
+
+void escala_color(int nfoto, int nres)
+{
+    Mat gris;
+    cvtColor(foto[nfoto].img, gris, COLOR_BGR2GRAY);
+    cvtColor(gris, gris, COLOR_GRAY2BGR);
+
+    Mat lut(1, 256, CV_8UC3);
+    int vb = color_pincel.val[0];
+    int vg = color_pincel.val[1];
+    int vr = color_pincel.val[2];
+    for(int A=0; A<256; A++)
+    {
+        if (A<128)
+            lut.at<Vec3b>(A) = Vec3b(vb*A/128, vg*A/128, vr*A/128);
+        else
+            lut.at<Vec3b>(A) = Vec3b(vb+(255-vb)*(A-128)/128, vg+(255-vg)*(A-128)/128, vr+(255-vr)*(A-128)/128);
+    }
+
+    Mat res;
+    LUT(gris, lut, res);
+    crear_nueva(nres, res);
+}
+
+//---------------------------------------------------------------------------
+
+
+void ver_pinchar_estirar(int nfoto, int cx, int cy, double radio, double grado, bool guardar)
+{
+    // Superficie
+    Mat S(foto[nfoto].img.rows, foto[nfoto].img.cols, CV_32FC1);
+    for (int y=0; y < S.rows; y++)
+    {
+        for (int x=0; x < S.cols; x++)
+            S.at<float>(y, x) = exp(-((x-cx)*(x-cx)+(y-cy)*(y-cy))/(radio*radio));
+    }
+
+    Mat Gx, Gy;
+    Sobel(S, Gx, CV_32F, 1, 0, 3, grado, 0, BORDER_REFLECT);
+    Sobel(S, Gy, CV_32F, 0, 1, 3, grado, 0, BORDER_REFLECT);
+
+    multiply(S, Gx, Gx);
+    multiply(S, Gy, Gy);
+    for (int y=0; y < S.rows; y++)
+    {
+        for (int x=0; x < S.cols; x++)
+        {
+            Gx.at<float>(y, x) += x;
+            Gy.at<float>(y, x) += y;
+        }
+    }
+    Mat res;
+    remap(foto[nfoto].img, res, Gx, Gy, INTER_LINEAR, BORDER_REFLECT);
+    imshow("Pinchar/estirar", res);
+
+    if(guardar)
+    {
+        res.copyTo(foto[nfoto].img);
+        foto[nfoto].modificada = true;
+    }
+
+}
+
+//---------------------------------------------------------------------------
+
 
 string Lt1(string cadena)
 {

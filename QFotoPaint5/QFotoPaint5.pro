@@ -15,11 +15,14 @@ TEMPLATE = app
 CONFIG += c++11
 
 SOURCES += main.cpp\
+    ajustelineal.cpp \
     bajorelieve.cpp \
+    capturarvideo.cpp \
     mainwindow.cpp \
     imagenes.cpp \
     dialognueva.cpp \
     brillocontraste.cpp \
+    pincharestirar.cpp \
     suavizados.cpp \
     video.cpp \
     rotaravideo.cpp \
@@ -28,10 +31,13 @@ SOURCES += main.cpp\
     mediadevideo.cpp
 
 HEADERS  += mainwindow.h \
+    ajustelineal.h \
     bajorelieve.h \
+    capturarvideo.h \
     imagenes.h \
     dialognueva.h \
     brillocontraste.h \
+    pincharestirar.h \
     suavizados.h \
     video.h \
     rotaravideo.h \
@@ -40,9 +46,12 @@ HEADERS  += mainwindow.h \
     mediadevideo.h
 
 FORMS    += mainwindow.ui \
+    ajustelineal.ui \
     bajorelieve.ui \
+    capturarvideo.ui \
     dialognueva.ui \
     brillocontraste.ui \
+    pincharestirar.ui \
     suavizados.ui \
     rotaravideo.ui \
     mediaponderada.ui \

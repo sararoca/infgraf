@@ -163,6 +163,15 @@ void ver_histograma(int nfoto, int nres, int canal);
 void ver_bajorelieve(int nfoto, double angulo, double grado, int fondo,
                      bool guardar=false);
 
+void ver_ajuste_lineal(int nfoto, double pmin, double pmax, bool guardar=false);
+// Operación de ajuste lineal del histograma
+
+void escala_color(int nfoto, int nres);
+// Trasformación de escala de color usando el color_pincel
+
+void ver_pinchar_estirar(int nfoto, int cx, int cy, double radio, double grado, bool guardar=false);
+// Transformación de superficie deformante con gausiana
+
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 
