@@ -22,6 +22,8 @@ SOURCES += main.cpp\
     imagenes.cpp \
     dialognueva.cpp \
     brillocontraste.cpp \
+    matsatlum.cpp \
+    perfilado.cpp \
     pincharestirar.cpp \
     suavizados.cpp \
     video.cpp \
@@ -37,6 +39,8 @@ HEADERS  += mainwindow.h \
     imagenes.h \
     dialognueva.h \
     brillocontraste.h \
+    matsatlum.h \
+    perfilado.h \
     pincharestirar.h \
     suavizados.h \
     video.h \
@@ -51,6 +55,8 @@ FORMS    += mainwindow.ui \
     capturarvideo.ui \
     dialognueva.ui \
     brillocontraste.ui \
+    matsatlum.ui \
+    perfilado.ui \
     pincharestirar.ui \
     suavizados.ui \
     rotaravideo.ui \

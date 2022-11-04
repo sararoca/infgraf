@@ -20,6 +20,8 @@ using namespace cv;
 #include "ajustelineal.h"
 #include "capturarvideo.h"
 #include "pincharestirar.h"
+#include "matsatlum.h"
+#include "perfilado.h"
 
 QString FiltroImagen = "Todos los formatos (*.jpg *.jpeg *.jpe .jp2 *.tif *.tiff *.png *.gif *.bmp *.dib *.webp *.ppm);;Archivos JPG (*.jpg *.jpeg *.jpe);;Archivos TIF (*.tif *.tiff);;Archivos PNG (*.png);;Archivos GIF (*.gif);;Archivos BMP (*.bmp *.dib);;Otros (*.*)";
 
@@ -442,5 +444,21 @@ void MainWindow::on_actionPichar_Estirar_triggered()
     if (foto_activa()!=-1) {
         PincharEstirar pe(foto_activa());
         pe.exec();
+    }
+}
+
+void MainWindow::on_actionMatiz_saturaci_n_luminosidad_triggered()
+{
+    if (foto_activa()!=-1) {
+        MatSatLum msl(foto_activa());
+        msl.exec();
+    }
+}
+
+void MainWindow::on_actionPerfilar_triggered()
+{
+    if (foto_activa()!=-1) {
+        Perfilado pf(foto_activa());
+        pf.exec();
     }
 }

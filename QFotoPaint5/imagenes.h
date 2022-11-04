@@ -172,6 +172,12 @@ void escala_color(int nfoto, int nres);
 void ver_pinchar_estirar(int nfoto, int cx, int cy, double radio, double grado, bool guardar=false);
 // Transformación de superficie deformante con gausiana
 
+void ver_matiz_saturacion_luminosidad(int nfoto, int matiz, double satu, double lumi, bool guardar=false);
+// Modificación de matiz/saturación/luminosidad
+
+void ver_perfilado(int nfoto, int tam, double grado, bool guardar=false);
+// Operación de perfilado usando la Laplaciana
+
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 

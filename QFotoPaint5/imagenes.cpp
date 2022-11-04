@@ -917,6 +917,55 @@ void ver_pinchar_estirar(int nfoto, int cx, int cy, double radio, double grado, 
 //---------------------------------------------------------------------------
 
 
+void ver_matiz_saturacion_luminosidad(int nfoto, int matiz, double satu, double lumi, bool guardar)
+{
+    Mat hls;
+    cvtColor(foto[nfoto].img, hls, COLOR_BGR2HLS_FULL);
+    Mat canales[3];
+    split(hls, canales);
+    canales[0] += matiz;
+    canales[0].convertTo(canales[0], CV_16S, 1, matiz);
+    bitwise_and(canales[0], 255, canales[0]);
+    canales[0].convertTo(canales[0], CV_8U);
+    canales[1] *= lumi;
+    canales[2] *= satu;
+    merge(canales, 3, hls);
+    Mat res;
+    cvtColor(hls, res, COLOR_HLS2BGR_FULL);
+    imshow(foto[nfoto].nombre, res);
+
+       if(guardar)
+       {
+            res.copyTo(foto[nfoto].img);
+            mostrar(nfoto);
+            foto[nfoto].modificada = true;
+       }
+}
+
+//---------------------------------------------------------------------------
+
+
+void ver_perfilado(int nfoto, int tam, double grado, bool guardar)
+{
+    Mat laplace;
+    Laplacian(foto[nfoto].img, laplace, CV_16S, tam, -grado, 0, BORDER_REFLECT);
+    Mat img16;
+    foto[nfoto].img.convertTo(img16, CV_16S);
+    img16 += laplace;
+    Mat res;
+    img16.convertTo(res, CV_8U);
+    imshow(foto[nfoto].nombre, res);
+
+    if(guardar)
+    {
+         res.copyTo(foto[nfoto].img);
+         foto[nfoto].modificada = true;
+    }
+}
+
+//---------------------------------------------------------------------------
+
+
 string Lt1(string cadena)
 {
     QString temp= QString::fromUtf8(cadena.c_str());

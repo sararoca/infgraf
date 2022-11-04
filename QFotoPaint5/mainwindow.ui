@@ -458,6 +458,7 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionRotar_91"/>
     </widget>
     <addaction name="actionBrillo_contraste"/>
+    <addaction name="actionMatiz_saturaci_n_luminosidad"/>
     <addaction name="actionInvertir"/>
     <addaction name="menuRotar"/>
     <addaction name="actionMedia_ponderada"/>
@@ -479,6 +480,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="menuSuavizado"/>
     <addaction name="actionBajo_relieve"/>
     <addaction name="actionPichar_Estirar"/>
+    <addaction name="actionPerfilar"/>
    </widget>
    <widget class="QMenu" name="menuV_deo">
     <property name="title">
@@ -714,6 +716,16 @@ p, li { white-space: pre-wrap; }
   <action name="actionPichar_Estirar">
    <property name="text">
     <string>Pichar Estirar...</string>
+   </property>
+  </action>
+  <action name="actionMatiz_saturaci_n_luminosidad">
+   <property name="text">
+    <string>Matiz/saturación/luminosidad...</string>
+   </property>
+  </action>
+  <action name="actionPerfilar">
+   <property name="text">
+    <string>Perfilar...</string>
    </property>
   </action>
  </widget>
