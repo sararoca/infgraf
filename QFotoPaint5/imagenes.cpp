@@ -964,7 +964,7 @@ void ver_perfilado(int nfoto, int tam, double grado, bool guardar)
 }
 
 //---------------------------------------------------------------------------
-
+// prueba git
 
 string Lt1(string cadena)
 {
