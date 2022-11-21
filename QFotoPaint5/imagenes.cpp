@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <assert.h>
+#include <QClipboard>
 
 ///////////////////////////////////////////////////////////////////
 /////////  VARIABLES GLOBALES                        //////////////
@@ -987,6 +988,7 @@ void ver_perspectiva(int nfoto1, int nfoto2, Point2f pt1[], Point2f pt2[], bool 
         {
             circle(imres, pt2[i], 8, CV_RGB(0,255,0), -1);
         }
+        imshow("Perspectiva", imres);
     }
 }
 

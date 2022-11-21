@@ -491,7 +491,7 @@ void MainWindow::on_actionNueva_imagen_desde_el_portapapeles_triggered()
     }
 }
 
-}
+
 
 
 
