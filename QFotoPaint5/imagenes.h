@@ -178,6 +178,16 @@ void ver_matiz_saturacion_luminosidad(int nfoto, int matiz, double satu, double 
 void ver_perfilado(int nfoto, int tam, double grado, bool guardar=false);
 // Operación de perfilado usando la Laplaciana
 
+///////////////////////////////////////////////////////////////////
+/////////////////  MEJORAS OPCIONALES   ///////////////////////////
+///////////////////////////////////////////////////////////////////
+
+void copiar_portapapeles (Mat img);
+// Copia en el portapapeles la imagen dada en img
+
+void nueva_portapapeles (int nfoto);
+//Crea una nueva entrada, en la posición nfoto, usando la imagen que hay en el portapapeles
+
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 

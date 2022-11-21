@@ -78,6 +78,8 @@ private slots:
     void on_actionPichar_Estirar_triggered();
     void on_actionMatiz_saturaci_n_luminosidad_triggered();
     void on_actionPerfilar_triggered();
+    void on_actionCopiar_a_portapales_triggered();
+    void on_actionNueva_imagen_desde_el_portapapeles_triggered();
 };
 
 extern MainWindow *w;

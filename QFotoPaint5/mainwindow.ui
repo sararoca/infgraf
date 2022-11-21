@@ -396,6 +396,7 @@ p, li { white-space: pre-wrap; }
      <string>Archivo</string>
     </property>
     <addaction name="actionNueva_imagen"/>
+    <addaction name="actionNueva_imagen_desde_el_portapapeles"/>
     <addaction name="actionAbrir_imagen"/>
     <addaction name="actionCapturar_de_c_mara"/>
     <addaction name="actionCapturar_de_v_deo"/>
@@ -432,6 +433,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="actionCopiar_a_nueva"/>
+    <addaction name="actionCopiar_a_portapales"/>
     <addaction name="menuVer_histograma"/>
    </widget>
    <widget class="QMenu" name="menuHerramientas">
@@ -726,6 +728,16 @@ p, li { white-space: pre-wrap; }
   <action name="actionPerfilar">
    <property name="text">
     <string>Perfilar...</string>
+   </property>
+  </action>
+  <action name="actionCopiar_a_portapales">
+   <property name="text">
+    <string>Copiar a portapales</string>
+   </property>
+  </action>
+  <action name="actionNueva_imagen_desde_el_portapapeles">
+   <property name="text">
+    <string>Nueva imagen desde el portapapeles...</string>
    </property>
   </action>
  </widget>

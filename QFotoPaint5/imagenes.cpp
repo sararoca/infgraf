@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <assert.h>
+#include <QClipboard>
 
 ///////////////////////////////////////////////////////////////////
 /////////  VARIABLES GLOBALES                        //////////////
@@ -963,8 +964,53 @@ void ver_perfilado(int nfoto, int tam, double grado, bool guardar)
     }
 }
 
+///////////////////////////////////////////////////////////////////
+/////////////////  MEJORAS OPCIONALES   ///////////////////////////
+///////////////////////////////////////////////////////////////////
+
+
+void copiar_portapapeles (Mat img)
+{
+    //assert(!img.empty());
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    //QImage imq = QImage(img.cols, img.rows, QImage::Format_Alpha8);
+
+    QImage::Format format=QImage::Format_Grayscale8;
+    int bpp=img.channels();
+    if(bpp==3)format=QImage::Format_RGB888;
+    QImage imq = QImage(img.cols,img.rows,format).rgbSwapped();
+    //QImage imq(img.data, img.cols, img.rows, QImage::Format_RGB888);
+
+    clipboard->setImage(imq, QClipboard::Clipboard);
+}
+
 //---------------------------------------------------------------------------
-// prueba git
+
+
+void nueva_portapapeles (int nfoto)
+{
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    QImage image = clipboard->image();
+    assert(nfoto>=0 && nfoto<MAX_VENTANAS && !foto[nfoto].usada && !image.isNull());
+
+    Mat mat(image.height(), image.width(), CV_8UC3);
+    cvtColor(mat, mat, COLOR_RGB2BGR);
+
+    foto[nfoto].nombre= "nueva-"+to_string(nfoto)+".png";
+    foto[nfoto].nombref= foto[nfoto].nombre;
+    foto[nfoto].img=mat;
+    namedWindow(foto[nfoto].nombre, WINDOW_NO_POPUP+WINDOW_MOVE_RIGHT);
+    foto[nfoto].orden= numpos++;
+    imshow(foto[nfoto].nombre, foto[nfoto].img);
+    foto[nfoto].usada= true;
+    foto[nfoto].modificada= true;
+    setMouseCallback(foto[nfoto].nombre, callback, reinterpret_cast<void*>(nfoto));
+    escribir_barra_estado();
+
+}
+
+//---------------------------------------------------------------------------
+
 
 string Lt1(string cadena)
 {

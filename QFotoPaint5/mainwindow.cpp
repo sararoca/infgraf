@@ -348,7 +348,7 @@ void MainWindow::on_actionImagen_media_triggered()
 
 void MainWindow::on_actionCopiar_a_nueva_triggered()
 {
-    if (foto_activa()!=-1 && primera_libre()!=-1) //significa que hay alguna y que aún nose ha ññemado todo el array
+    if (foto_activa()!=-1 && primera_libre()!=-1) //significa que hay alguna y que aún no se ha llenado todo el array
     {
         int num = foto_activa();
         foto[num].img(foto[num].roi);
@@ -460,5 +460,24 @@ void MainWindow::on_actionPerfilar_triggered()
     if (foto_activa()!=-1) {
         Perfilado pf(foto_activa());
         pf.exec();
+    }
+}
+
+void MainWindow::on_actionCopiar_a_portapales_triggered()
+{
+    if (foto_activa()!=-1)
+    {
+        int num = foto_activa();
+        foto[num].img(foto[num].roi);
+        Mat imgres = foto[num].img(foto[num].roi).clone();
+        copiar_portapapeles(imgres);
+    }
+}
+
+void MainWindow::on_actionNueva_imagen_desde_el_portapapeles_triggered()
+{
+    if (primera_libre()!=-1) //significa que hay alguna y que aún no se ha llenado todo el array
+    {
+        nueva_portapapeles(primera_libre()); //siempre que llamamos tenemos que comprobar si la operación provoca un error: pjemplo no queda ninguna libre
     }
 }
