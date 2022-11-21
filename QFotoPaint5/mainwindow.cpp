@@ -22,6 +22,7 @@ using namespace cv;
 #include "pincharestirar.h"
 #include "matsatlum.h"
 #include "perfilado.h"
+#include "perspectiva.h"
 
 QString FiltroImagen = "Todos los formatos (*.jpg *.jpeg *.jpe .jp2 *.tif *.tiff *.png *.gif *.bmp *.dib *.webp *.ppm);;Archivos JPG (*.jpg *.jpeg *.jpe);;Archivos TIF (*.tif *.tiff);;Archivos PNG (*.png);;Archivos GIF (*.gif);;Archivos BMP (*.bmp *.dib);;Otros (*.*)";
 
@@ -348,7 +349,7 @@ void MainWindow::on_actionImagen_media_triggered()
 
 void MainWindow::on_actionCopiar_a_nueva_triggered()
 {
-    if (foto_activa()!=-1 && primera_libre()!=-1) //significa que hay alguna y que aún no se ha llenado todo el array
+    if (foto_activa()!=-1 && primera_libre()!=-1) //significa que hay alguna y que aún nose ha ññemado todo el array
     {
         int num = foto_activa();
         foto[num].img(foto[num].roi);
@@ -463,7 +464,15 @@ void MainWindow::on_actionPerfilar_triggered()
     }
 }
 
-void MainWindow::on_actionCopiar_a_portapales_triggered()
+void MainWindow::on_actionPerspectiva_triggered()
+{
+    if (foto_activa()!=-1) {
+        Perspectiva p;
+        p.exec();
+    }
+}
+
+void MainWindow::on_actionCopiar_a_portapapeles_triggered()
 {
     if (foto_activa()!=-1)
     {
@@ -481,3 +490,8 @@ void MainWindow::on_actionNueva_imagen_desde_el_portapapeles_triggered()
         nueva_portapapeles(primera_libre()); //siempre que llamamos tenemos que comprobar si la operación provoca un error: pjemplo no queda ninguna libre
     }
 }
+
+}
+
+
+

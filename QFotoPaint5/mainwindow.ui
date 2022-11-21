@@ -433,7 +433,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="actionCopiar_a_nueva"/>
-    <addaction name="actionCopiar_a_portapales"/>
+    <addaction name="actionCopiar_desde_portapapeles"/>
     <addaction name="menuVer_histograma"/>
    </widget>
    <widget class="QMenu" name="menuHerramientas">
@@ -466,6 +466,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionMedia_ponderada"/>
     <addaction name="actionAjuste_lineal"/>
     <addaction name="actionEscala_de_color"/>
+    <addaction name="actionPerspectiva"/>
    </widget>
    <widget class="QMenu" name="menuEfectos">
     <property name="title">
@@ -730,9 +731,14 @@ p, li { white-space: pre-wrap; }
     <string>Perfilar...</string>
    </property>
   </action>
-  <action name="actionCopiar_a_portapales">
+  <action name="actionPerspectiva">
    <property name="text">
-    <string>Copiar a portapales</string>
+    <string>Perspectiva...</string>
+   </property>
+  </action>
+  <action name="actionCopiar_desde_portapapeles">
+   <property name="text">
+    <string>Copiar a portapapeles</string>
    </property>
   </action>
   <action name="actionNueva_imagen_desde_el_portapapeles">

@@ -178,6 +178,9 @@ void ver_matiz_saturacion_luminosidad(int nfoto, int matiz, double satu, double 
 void ver_perfilado(int nfoto, int tam, double grado, bool guardar=false);
 // Operación de perfilado usando la Laplaciana
 
+void ver_perspectiva(int nfoto1, int nfoto2, Point2f pt1[], Point2f pt2[], bool guardar=false);
+// Transformación perspectiva de nfoto1 en nfoto2
+
 ///////////////////////////////////////////////////////////////////
 /////////////////  MEJORAS OPCIONALES   ///////////////////////////
 ///////////////////////////////////////////////////////////////////

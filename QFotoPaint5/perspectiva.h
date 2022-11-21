@@ -15,6 +15,15 @@ public:
     explicit Perspectiva(QWidget *parent = nullptr);
     ~Perspectiva();
 
+private slots:
+    void on_Perspectiva_accepted();
+
+    void on_Perspectiva_rejected();
+
+    void on_listWidget_currentRowChanged(int currentRow);
+
+    void on_listWidget_2_currentRowChanged(int currentRow);
+
 private:
     Ui::Perspectiva *ui;
 };

@@ -7,7 +7,6 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <assert.h>
-#include <QClipboard>
 
 ///////////////////////////////////////////////////////////////////
 /////////  VARIABLES GLOBALES                        //////////////
@@ -963,6 +962,34 @@ void ver_perfilado(int nfoto, int tam, double grado, bool guardar)
          foto[nfoto].modificada = true;
     }
 }
+
+//---------------------------------------------------------------------------
+
+
+void ver_perspectiva(int nfoto1, int nfoto2, Point2f pt1[], Point2f pt2[], bool guardar)
+{
+    Mat M = getPerspectiveTransform(pt1, pt2);
+    Mat imres = foto[nfoto2].img.clone();
+    warpPerspective(foto[nfoto1].img, imres, M, imres.size(), INTER_LINEAR, BORDER_TRANSPARENT);
+    imshow("Perspectiva", imres);
+    if (guardar)
+    {
+        imres.copyTo(foto[nfoto2].img);
+        foto[nfoto2].modificada = true;
+        mostrar(nfoto2);
+    }
+    else {
+        for (int i=0; i<4; i++)
+        {
+            line(imres, pt2[i], pt2[((i+1)%4)], CV_RGB(0,0,0), 2);
+        }
+        for (int i=0; i<4; i++)
+        {
+            circle(imres, pt2[i], 8, CV_RGB(0,255,0), -1);
+        }
+    }
+}
+
 
 ///////////////////////////////////////////////////////////////////
 /////////////////  MEJORAS OPCIONALES   ///////////////////////////
