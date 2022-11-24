@@ -1045,7 +1045,7 @@ void convertir_color_falso(int nfoto, int nres)
 {
     Mat src = foto[nfoto].img;
     Mat dest;
-    applyColorMap(src, dest, COLORMAP_TWILIGHT);
+    applyColorMap(src, dest, COLORMAP_HSV);
     crear_nueva(nres, dest);
 }
 

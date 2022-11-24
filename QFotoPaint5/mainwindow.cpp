@@ -23,6 +23,7 @@ using namespace cv;
 #include "matsatlum.h"
 #include "perfilado.h"
 #include "perspectiva.h"
+#include "movimiento.h"
 
 QString FiltroImagen = "Todos los formatos (*.jpg *.jpeg *.jpe .jp2 *.tif *.tiff *.png *.gif *.bmp *.dib *.webp *.ppm);;Archivos JPG (*.jpg *.jpeg *.jpe);;Archivos TIF (*.tif *.tiff);;Archivos PNG (*.png);;Archivos GIF (*.gif);;Archivos BMP (*.bmp *.dib);;Otros (*.*)";
 
@@ -499,5 +500,19 @@ void MainWindow::on_actionConvertir_a_color_falso_triggered()
         int pl= comprobar_primera_libre();
         if (comprobar_primera_libre() != -1)
             convertir_color_falso(num, pl);
+    }
+}
+
+void MainWindow::on_actionMovimiento_triggered()
+{
+    if (primera_libre() != 1)
+    {
+      QString nombre = QFileDialog::getOpenFileName();
+      if (!nombre.isEmpty())
+      {
+        Movimiento mv(nombre, primera_libre());
+        if (mv.isOpened())
+            mv.exec();
+      }
     }
 }

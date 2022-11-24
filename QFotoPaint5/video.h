@@ -29,6 +29,9 @@ void acumular_media (bool primera= false);
 void media_a_nueva (int nfoto);
 // Almacena la imagen media actual en la entrada nfoto
 
+void movimiento(string nombre, int framei, int framef, int nres);
+// Operación de acumular movimiento en vídeo
+
 void mostrar_camara (void);
 // Captura una imagen de la cámara y la muestra en la ventana correspondiente
 
