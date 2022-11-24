@@ -653,7 +653,8 @@ void rotar_exacto (int nfoto, int nres, int grado)
 
 //---------------------------------------------------------------------------
 
-void ver_brillo_contraste (int nfoto, double suma, double prod, double gama, bool guardar)
+void ver_brillo_contraste (int nfoto, double suma, double prod,
+                           double gama, bool guardar)
 {
     assert(nfoto>=0 && nfoto<MAX_VENTANAS && foto[nfoto].usada);
     Mat img;
