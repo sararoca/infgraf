@@ -491,7 +491,13 @@ void MainWindow::on_actionNueva_imagen_desde_el_portapapeles_triggered()
     }
 }
 
-
-
-
-
+void MainWindow::on_actionConvertir_a_color_falso_triggered()
+{
+    if (foto_activa()!=-1)
+    {
+        int num = foto_activa();
+        int pl= comprobar_primera_libre();
+        if (comprobar_primera_libre() != -1)
+            convertir_color_falso(num, pl);
+    }
+}

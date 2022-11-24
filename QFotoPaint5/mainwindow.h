@@ -81,6 +81,7 @@ private slots:
     void on_actionPerspectiva_triggered();
     void on_actionNueva_imagen_desde_el_portapapeles_triggered();
     void on_actionCopiar_a_portapapeles_triggered();
+    void on_actionConvertir_a_color_falso_triggered();
 };
 
 extern MainWindow *w;

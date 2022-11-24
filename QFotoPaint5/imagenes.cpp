@@ -1041,6 +1041,17 @@ void nueva_portapapeles (int nfoto)
 //---------------------------------------------------------------------------
 
 
+void convertir_color_falso(int nfoto, int nres)
+{
+    Mat src = foto[nfoto].img;
+    Mat dest;
+    applyColorMap(src, dest, COLORMAP_TWILIGHT);
+    crear_nueva(nres, dest);
+}
+
+//---------------------------------------------------------------------------
+
+
 string Lt1(string cadena)
 {
     QString temp= QString::fromUtf8(cadena.c_str());

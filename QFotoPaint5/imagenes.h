@@ -191,6 +191,8 @@ void copiar_portapapeles (Mat img);
 void nueva_portapapeles (int nfoto);
 //Crea una nueva entrada, en la posición nfoto, usando la imagen que hay en el portapapeles
 
+void convertir_color_falso(int nfoto, int nres);
+
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 

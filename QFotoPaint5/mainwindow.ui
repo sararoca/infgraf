@@ -467,6 +467,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionAjuste_lineal"/>
     <addaction name="actionEscala_de_color"/>
     <addaction name="actionPerspectiva"/>
+    <addaction name="actionConvertir_a_color_falso"/>
    </widget>
    <widget class="QMenu" name="menuEfectos">
     <property name="title">
@@ -744,6 +745,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionNueva_imagen_desde_el_portapapeles">
    <property name="text">
     <string>Nueva imagen desde el portapapeles...</string>
+   </property>
+  </action>
+  <action name="actionConvertir_a_color_falso">
+   <property name="text">
+    <string>Convertir a color falso...</string>
    </property>
   </action>
  </widget>
