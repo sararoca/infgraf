@@ -458,6 +458,7 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionRotar_90"/>
      <addaction name="actionRotar_180"/>
      <addaction name="actionRotar_91"/>
+     <addaction name="actionOtros"/>
     </widget>
     <addaction name="actionBrillo_contraste"/>
     <addaction name="actionMatiz_saturaci_n_luminosidad"/>
@@ -756,6 +757,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionMovimiento">
    <property name="text">
     <string>Movimiento...</string>
+   </property>
+  </action>
+  <action name="actionOtros">
+   <property name="text">
+    <string>Otros ...</string>
    </property>
   </action>
  </widget>

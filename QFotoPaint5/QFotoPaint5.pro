@@ -27,6 +27,7 @@ SOURCES += main.cpp\
     perfilado.cpp \
     perspectiva.cpp \
     pincharestirar.cpp \
+    rotarangulo.cpp \
     suavizados.cpp \
     video.cpp \
     rotaravideo.cpp \
@@ -46,6 +47,7 @@ HEADERS  += mainwindow.h \
     perfilado.h \
     perspectiva.h \
     pincharestirar.h \
+    rotarangulo.h \
     suavizados.h \
     video.h \
     rotaravideo.h \
@@ -64,6 +66,7 @@ FORMS    += mainwindow.ui \
     perfilado.ui \
     perspectiva.ui \
     pincharestirar.ui \
+    rotarangulo.ui \
     suavizados.ui \
     rotaravideo.ui \
     mediaponderada.ui \
