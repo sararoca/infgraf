@@ -659,9 +659,9 @@ void ver_brillo_contraste (int nfoto, double suma, double prod, double gama, boo
     Mat img;
     foto[nfoto].img.convertTo(img, CV_8UC3, prod, suma);
     Mat img32f;
-    img.convertTo(img32f, CV_32F, 1.0/255);
-    pow(img32f, gama, img32f);
-    img32f.convertTo(img, CV_8U, 255);
+    img.convertTo(img32f,CV_32F, 1.0/255);
+    pow(img32f, gama , img32f);
+    img32f.convertTo(img, CV_8U,255);
     imshow(foto[nfoto].nombre, img);
     if (guardar) {
         img.copyTo(foto[nfoto].img);
