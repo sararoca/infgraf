@@ -26,6 +26,7 @@ int difum_pincel= 10;
 bool preguntar_guardar= true;
 
 static int numpos= 0; // Número actual en el orden de posición de las ventanas
+Point anterior = Point(-1,-1);
 
 ///////////////////////////////////////////////////////////////////
 /////////  FUNCIONES DE MANEJO DE VENTANAS           //////////////
@@ -253,43 +254,34 @@ void cb_close (int factual)
 
 //---------------------------------------------------------------------------
 
-void cb_punto (int factual, int x, int y)
+void cb_punto (int factual, int x, int y, Scalar color=color_pincel)
 {
     Mat im= foto[factual].img;  // Ojo: esto no es una copia, sino a la misma imagen
     if (difum_pincel==0)
-        circle(im, Point(x, y), radio_pincel, color_pincel, -1, LINE_AA);
+        circle(im, Point(x, y), radio_pincel, color, -1, LINE_AA);
     else {
-        int tam = radio_pincel*difum_pincel;
-        Rect roi(x-tam, y-tam, 2*tam+1, 2*tam+1);
-        int posx=tam;
-        int posy=tam;
-        if (roi.x<0)
-        {
-            roi.width += roi.x;
-            posx += roi.x;
-            roi.x = 0;
+        int t = radio_pincel+ difum_pincel;
+        int posx = t , posy = t;
+        Rect roi(x-t, y-t , 2*t+1, 2*t+1);
+        if(roi.x < 0){
+            roi.height+= roi.x;
+            posx = roi.x;
+            roi.x= 0;
         }
-
-        if (roi.y < 0)
-        {
-            roi.height += roi.y;
-            posy += roi.y;
-            roi.y = 0;
+        if(roi.y < 0){
+            roi.height+= roi.y;
+            posy = roi.y;
+            roi.y= 0;
         }
-
-        if (roi.x+roi.width > im.cols)
-        {
-            roi.width= im.cols-roi.x;
+        if(roi.x + roi.width > im.cols){
+            roi.width = im.cols-roi.x;
         }
-
-        if (roi.y+roi.height > im.rows)
-        {
-            roi.height = im.rows - roi.y;
+        if(roi.x + roi.height > im.rows){
+            roi.height = im.rows-roi.y;
         }
-
-        Mat frag =im(roi);
-        Mat res(frag.size(), frag.type(), color_pincel);
-        Mat cop(frag.size(), frag.type(), CV_RGB(0,0,0));
+        Mat frag = im(roi);
+        Mat res(frag.size(), im.type(), color);
+        Mat cop(frag.size(), im.type(), CV_RGB(0,0,0));
         circle(cop, Point(posx, posy), radio_pincel, CV_RGB(255,255,255), -1, LINE_AA);
         blur(cop, cop, Size(difum_pincel*2+1, difum_pincel*2+1));
         multiply(res, cop, res, 1.0/255.0);
@@ -300,10 +292,45 @@ void cb_punto (int factual, int x, int y)
     imshow(foto[factual].nombre, im);
     foto[factual].modificada= true;
 }
+//---------------------------------------------------------------------------
+Scalar ColorArcoiris(){
+    static Scalar colorActual= CV_RGB(255,0,0);
+    static int estado = 0;
+    switch (estado) {
+    case 0: colorActual.val[1]+=8;
+        if(colorActual.val[1]>=255) estado = 1;
+        break;
+    case 1: colorActual.val[2]-=8;
+        if(colorActual.val[2]<=0) estado = 2;
+        break;
+    case 2: colorActual.val[0]+=8;
+        if(colorActual.val[0]>=255) estado = 3;
+        break;
+    case 3: colorActual.val[1]-=8;
+        if(colorActual.val[1]<=0) estado = 4;
+        break;
+    case 4: colorActual.val[2]+=8;
+        if(colorActual.val[2]>=255) estado = 5;
+        break;
+    case 5: colorActual.val[0]-=8;
+        if(colorActual.val[0]<=0) estado = 0;
+        break;
+
+    }
+    return colorActual;
+}
+
+
+void cb_arco_iris (int factual, int x, int y)
+{
+    cb_punto(factual,x,y , ColorArcoiris());
+}
+//---------------------------------------------------------------------------
+
 
 //---------------------------------------------------------------------------
 
-void cb_linea (int factual, int x, int y)
+void cb_linea(int factual, int x, int y)
 {
     Mat im= foto[factual].img;  // Ojo: esto no es una copia, sino a la misma imagen
     if (difum_pincel==0)
@@ -331,6 +358,15 @@ void cb_ver_linea (int factual, int x, int y)
     imshow(foto[factual].nombre, res);
 }
 
+//---------------------------------------------------------------------------
+void cb_trazos(int factual, int x, int y)
+{
+    //if(abs(anterior.x-x)>20 or abs(anterior.y-y)>20){}
+        line(foto[factual].img, Point(downx, downy), Point(x,y), color_pincel, radio_pincel/10);
+        anterior.x=x;
+        anterior.y=y;
+
+}
 //---------------------------------------------------------------------------
 
 void cb_rectangulo (int factual, int x, int y)
@@ -389,83 +425,6 @@ void cb_ver_elipse (int factual, int x, int y)
     Mat res= foto[factual].img.clone();
     ellipse(res, Point(downx, downy), Point(abs(x - downx), abs(y - downy)),  0, 0, 360, color_pincel, radio_pincel*2-1);
     imshow(foto[factual].nombre, res);
-}
-
-//---------------------------------------------------------------------------
-Scalar ColorArcoIris ()
-{
-    Scalar colorActual = CV_RGB(255,0,0);
-    static int estadoActual = 0;
-    switch (estadoActual) {
-    case 0:
-        if (++colorActual.val[1] == 255) estadoActual=1;
-        break;
-    case 1:
-        if (--colorActual.val[2] == 0) estadoActual=2;
-        break;
-    case 2:
-        if (++colorActual.val[0] == 255) estadoActual=3;
-        break;
-    case 3:
-        if (--colorActual.val[1] == 0) estadoActual=4;
-        break;
-    case 4:
-        if (++colorActual.val[2] == 255) estadoActual=5;
-        break;
-    case 5:
-        if (--colorActual.val[0] == 0) estadoActual=0;
-        // break; no hace falta es el ultimo
-
-    }
-    return colorActual;
-}
-
-void cb_arco_iris (int factual, int x, int y)
-{
-    Mat im= foto[factual].img;  // Ojo: esto no es una copia, sino a la misma imagen
-    if (difum_pincel==0)
-        circle(im, Point(x, y), radio_pincel, ColorArcoIris(), -1, LINE_AA);
-    else {
-        int tam = radio_pincel*difum_pincel;
-        Rect roi(x-tam, y-tam, 2*tam+1, 2*tam+1);
-        int posx=tam;
-        int posy=tam;
-        if (roi.x<0)
-        {
-            roi.width += roi.x;
-            posx += roi.x;
-            roi.x = 0;
-        }
-
-        if (roi.y < 0)
-        {
-            roi.height += roi.y;
-            posy += roi.y;
-            roi.y = 0;
-        }
-
-        if (roi.x+roi.width > im.cols)
-        {
-            roi.width= im.cols-roi.x;
-        }
-
-        if (roi.y+roi.height > im.rows)
-        {
-            roi.height = im.rows - roi.y;
-        }
-
-        Mat frag =im(roi);
-        Mat res(frag.size(), frag.type(), ColorArcoIris());
-        Mat cop(frag.size(), frag.type(), CV_RGB(0,0,0));
-        circle(cop, Point(posx, posy), radio_pincel, CV_RGB(255,255,255), -1, LINE_AA);
-        blur(cop, cop, Size(difum_pincel*2+1, difum_pincel*2+1));
-        multiply(res, cop, res, 1.0/255.0);
-        bitwise_not(cop, cop);
-        multiply(frag, cop, frag, 1.0/255.0);
-        frag= res + frag;
-    }
-    imshow(foto[factual].nombre, im);
-    foto[factual].modificada= true;
 }
 
 //---------------------------------------------------------------------------
@@ -530,6 +489,8 @@ void callback (int event, int x, int y, int flags, void *_nfoto)
     if (event==EVENT_LBUTTONDOWN) {
         downx= x;
         downy= y;
+        anterior.x=x;
+        anterior.y=y;
     }
 
     // 2. Según la herramienta actual
@@ -547,7 +508,7 @@ void callback (int event, int x, int y, int flags, void *_nfoto)
     case HER_LINEA:
         if (event==EVENT_LBUTTONUP)
             cb_linea(factual, x, y);
-        else if (event==EVENT_MOUSEMOVE && flags==EVENT_FLAG_LBUTTON)
+        else if ( event==EVENT_MOUSEMOVE && flags==EVENT_FLAG_LBUTTON)
             cb_ver_linea(factual, x, y);
         else
             ninguna_accion(factual, x, y);
@@ -588,7 +549,17 @@ void callback (int event, int x, int y, int flags, void *_nfoto)
         else
             ninguna_accion(factual, x, y);
         break;
+    case HER_TRAZOS:
+        if (event==EVENT_LBUTTONUP)
+            anterior.x=-1;
+        else if (event==EVENT_MOUSEMOVE && flags==EVENT_FLAG_LBUTTON)
+            cb_trazos(factual,x,y);
+        else
+            ninguna_accion(factual, x, y);
+        break;
+
     }
+
     escribir_barra_estado();
 }
 
