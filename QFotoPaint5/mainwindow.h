@@ -84,6 +84,7 @@ private slots:
     void on_actionConvertir_a_color_falso_triggered();
     void on_actionMovimiento_triggered();
     void on_actionOtros_triggered();
+    void on_actionInformaci_n_de_imagenes_triggered();
 };
 
 extern MainWindow *w;

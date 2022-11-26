@@ -5,6 +5,7 @@
 using namespace std;
 #include <opencv2/opencv.hpp>
 using namespace cv;
+#include "qstring.h"
 
 
 ///////////////////////////////////////////////////////////////////
@@ -193,6 +194,7 @@ void nueva_portapapeles (int nfoto);
 
 void convertir_color_falso(int nfoto, int nres);
 
+void *propiedades(String prop[], int nfoto);
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 

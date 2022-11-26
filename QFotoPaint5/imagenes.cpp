@@ -1021,6 +1021,18 @@ void convertir_color_falso(int nfoto, int nres)
     crear_nueva(nres, dest);
 }
 
+//----------------------------------------------------------------
+void *propiedades(String prop[], int nfoto){
+    Mat img = foto[nfoto].img;
+    String fila = "Altura: "+to_string(img.rows);
+    prop[0]=fila;
+    fila = "Ancho: "+to_string(img.cols);
+    prop[1]=fila;
+
+    int tam_kilo= img.elemSize()/1024;
+    fila = "Tamaño: "+to_string(tam_kilo)+" KiB";
+    prop[2]=fila;
+}
 //---------------------------------------------------------------------------
 
 

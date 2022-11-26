@@ -122,3 +122,6 @@ void Perspectiva::on_listWidget_2_currentRowChanged(int currentRow)
     pintar_esquinas();
     ver_perspectiva(nfoto1p, nfoto2p, ptpers[0], ptpers[1]);
 }
+
+
+

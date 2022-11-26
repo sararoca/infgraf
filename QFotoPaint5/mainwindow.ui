@@ -398,6 +398,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionNueva_imagen"/>
     <addaction name="actionNueva_imagen_desde_el_portapapeles"/>
     <addaction name="actionAbrir_imagen"/>
+    <addaction name="actionInformaci_n_de_imagenes"/>
     <addaction name="actionCapturar_de_c_mara"/>
     <addaction name="actionCapturar_de_v_deo"/>
     <addaction name="separator"/>
@@ -762,6 +763,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionOtros">
    <property name="text">
     <string>Otros ...</string>
+   </property>
+  </action>
+  <action name="actionInformaci_n_de_imagenes">
+   <property name="text">
+    <string>Información de imagenes...</string>
    </property>
   </action>
  </widget>

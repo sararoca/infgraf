@@ -24,6 +24,7 @@ private slots:
 
     void on_listWidget_2_currentRowChanged(int currentRow);
 
+
 private:
     Ui::Perspectiva *ui;
 };

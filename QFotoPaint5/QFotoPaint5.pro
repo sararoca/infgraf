@@ -18,6 +18,7 @@ SOURCES += main.cpp\
     ajustelineal.cpp \
     bajorelieve.cpp \
     capturarvideo.cpp \
+    infoimagen.cpp \
     mainwindow.cpp \
     imagenes.cpp \
     dialognueva.cpp \
@@ -42,6 +43,7 @@ HEADERS  += mainwindow.h \
     imagenes.h \
     dialognueva.h \
     brillocontraste.h \
+    infoimagen.h \
     matsatlum.h \
     movimiento.h \
     perfilado.h \
@@ -61,6 +63,7 @@ FORMS    += mainwindow.ui \
     capturarvideo.ui \
     dialognueva.ui \
     brillocontraste.ui \
+    infoimagen.ui \
     matsatlum.ui \
     movimiento.ui \
     perfilado.ui \
