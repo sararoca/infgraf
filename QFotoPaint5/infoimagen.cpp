@@ -3,7 +3,7 @@
 #include "imagenes.h"
 
 int corr[MAX_VENTANAS];
-int NUM_PROP = 3;
+int NUM_PROP = 4;
 Infoimagen::Infoimagen(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::Infoimagen)
@@ -29,7 +29,7 @@ Infoimagen::~Infoimagen()
 void Infoimagen::on_listWidget_currentRowChanged(int currentRow)
 {
     ui->listWidget_2->clear();
-    String props[3];
+    String props[4];
     propiedades(props,corr[currentRow]);
 
     for (int i = 0;i < NUM_PROP ;i++) {

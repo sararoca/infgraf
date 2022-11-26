@@ -1028,10 +1028,13 @@ void *propiedades(String prop[], int nfoto){
     prop[0]=fila;
     fila = "Ancho: "+to_string(img.cols);
     prop[1]=fila;
-
-    int tam_kilo= img.elemSize()/1024;
+    QImage imq = QImage(QString::fromStdString(foto[nfoto].nombre));
+    int tam_kilo= imq.sizeInBytes()/1024;
     fila = "Tamaño: "+to_string(tam_kilo)+" KiB";
     prop[2]=fila;
+    fila = "Número de canales: "+to_string(img.channels());
+    prop[3]=fila;
+
 }
 //---------------------------------------------------------------------------
 
