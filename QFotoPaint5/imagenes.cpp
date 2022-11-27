@@ -625,11 +625,30 @@ void rotar_exacto (int nfoto, int nres, int grado)
 //---------------------------------------------------------------------------
 
 void ver_brillo_contraste (int nfoto, double suma, double prod,
-                           double gama, bool guardar)
+                           double gama, int modo, bool guardar)
 {
     assert(nfoto>=0 && nfoto<MAX_VENTANAS && foto[nfoto].usada);
     Mat img;
-    foto[nfoto].img.convertTo(img, CV_8UC3, prod, suma);
+    foto[nfoto].img.convertTo(img, CV_8UC3);
+    if (modo==0) {
+        foto[nfoto].img.convertTo(img, CV_8UC3, prod, suma);
+    } else {
+        Mat canales[3];
+        int tipo  = canales[0].type();
+        split(img, canales);
+        switch (modo) {
+        case 1 : canales[0].convertTo(canales[0], tipo, prod, suma);
+            break;
+
+        case 2 : canales[1].convertTo(canales[1], tipo, prod, suma);
+            break;
+
+        case 3 : canales[2].convertTo(canales[2], tipo, prod, suma);
+            break;
+        }
+        merge(canales, 3,img);
+    }
+
     Mat img32f;
     img.convertTo(img32f,CV_32F, 1.0/255);
     pow(img32f, gama , img32f);
@@ -639,6 +658,7 @@ void ver_brillo_contraste (int nfoto, double suma, double prod,
         img.copyTo(foto[nfoto].img);
         foto[nfoto].modificada= true;
     }
+
 }
 
 //---------------------------------------------------------------------------

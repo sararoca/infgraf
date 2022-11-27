@@ -140,7 +140,7 @@ void rotar_exacto (int nfoto, int nres, int grado);
 // Rota la imagen contenida en nfoto, en la cantidad 90*grado
 // y la almacena en nres. Se trata siempre de una rotación exacta
 
-void ver_brillo_contraste (int nfoto, double suma, double prod, double gama,
+void ver_brillo_contraste (int nfoto, double suma, double prod, double gama,int modo,
                            bool guardar= false);
 // Modifica la imagen en nfoto, tomando para cada píxel A(x,y) el valor:
 // A(x,y)*prod + suma. Si guardar==true se guarda la imagen, y en otro caso
