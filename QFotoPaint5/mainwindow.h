@@ -85,6 +85,7 @@ private slots:
     void on_actionMovimiento_triggered();
     void on_actionOtros_triggered();
     void on_actionInformaci_n_de_imagenes_triggered();
+    void on_actionAjuste_de_colores_triggered();
 };
 
 extern MainWindow *w;

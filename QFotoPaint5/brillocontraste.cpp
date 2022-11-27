@@ -12,7 +12,6 @@ brillocontraste::brillocontraste(int numfoto, QWidget *parent) :
     set_callback_foto(nfoto, false);
     suma= 0.0;
     multiplica= 1.0;
-    modo=0;
     if (parent)
         move(parent->x()+DESP_X_HIJO, parent->y()+DESP_Y_HIJO);
 }
@@ -46,7 +45,7 @@ void brillocontraste::actualizar()
     suma= (multiplica+1)*brillo/2-128*(multiplica-1);
     gama= ui->horizontalSlider_3->value()/100.0;
     if (ui->checkBox->isChecked())
-        ver_brillo_contraste(nfoto, suma, multiplica, gama, modo, false);
+        ver_brillo_contraste(nfoto, suma, multiplica, gama, false);
     else
         mostrar(nfoto);
 }
@@ -81,7 +80,7 @@ void brillocontraste::on_checkBox_stateChanged(int arg1)
 void brillocontraste::on_brillocontraste_accepted()
 {
     actualizar();
-    ver_brillo_contraste(nfoto, suma, multiplica, gama, modo, true);
+    ver_brillo_contraste(nfoto, suma, multiplica, gama, true);
 }
 
 void brillocontraste::on_brillocontraste_rejected()
@@ -97,30 +96,5 @@ void brillocontraste::on_spinBox_3_valueChanged(int arg1)
 void brillocontraste::on_horizontalSlider_3_valueChanged(int value)
 {
     ui->spinBox_3->setValue(value);
-    actualizar();
-}
-
-void brillocontraste::on_radioButton_clicked()
-{
-    modo=0;
-    actualizar();
-}
-
-void brillocontraste::on_radioButton_2_clicked()
-{
-    modo=1;
-    actualizar();
-
-}
-
-void brillocontraste::on_radioButton_3_clicked()
-{
-    modo=2;
-    actualizar();
-}
-
-void brillocontraste::on_radioButton_4_clicked()
-{
-    modo=3;
     actualizar();
 }

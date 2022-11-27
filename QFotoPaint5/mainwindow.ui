@@ -463,6 +463,7 @@ p, li { white-space: pre-wrap; }
     </widget>
     <addaction name="actionBrillo_contraste"/>
     <addaction name="actionMatiz_saturaci_n_luminosidad"/>
+    <addaction name="actionAjuste_de_colores"/>
     <addaction name="actionInvertir"/>
     <addaction name="menuRotar"/>
     <addaction name="actionMedia_ponderada"/>
@@ -768,6 +769,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionInformaci_n_de_imagenes">
    <property name="text">
     <string>Información de imagenes...</string>
+   </property>
+  </action>
+  <action name="actionAjuste_de_colores">
+   <property name="text">
+    <string>Ajuste de colores...</string>
    </property>
   </action>
  </widget>

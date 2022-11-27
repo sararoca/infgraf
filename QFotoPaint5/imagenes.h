@@ -140,7 +140,7 @@ void rotar_exacto (int nfoto, int nres, int grado);
 // Rota la imagen contenida en nfoto, en la cantidad 90*grado
 // y la almacena en nres. Se trata siempre de una rotación exacta
 
-void ver_brillo_contraste (int nfoto, double suma, double prod, double gama,int modo,
+void ver_brillo_contraste (int nfoto, double suma, double prod, double gama,
                            bool guardar= false);
 // Modifica la imagen en nfoto, tomando para cada píxel A(x,y) el valor:
 // A(x,y)*prod + suma. Si guardar==true se guarda la imagen, y en otro caso
@@ -195,6 +195,8 @@ void nueva_portapapeles (int nfoto);
 void convertir_color_falso(int nfoto, int nres);
 
 void *propiedades(String prop[], int nfoto);
+void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double prodG,
+                       double sumaR, double prodR,  bool guardar=false);
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 

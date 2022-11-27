@@ -625,39 +625,20 @@ void rotar_exacto (int nfoto, int nres, int grado)
 //---------------------------------------------------------------------------
 
 void ver_brillo_contraste (int nfoto, double suma, double prod,
-                           double gama, int modo, bool guardar)
+                           double gama,  bool guardar)
 {
     assert(nfoto>=0 && nfoto<MAX_VENTANAS && foto[nfoto].usada);
-    Mat img;
-    foto[nfoto].img.convertTo(img, CV_8UC3);
-    if (modo==0) {
+        Mat img;
         foto[nfoto].img.convertTo(img, CV_8UC3, prod, suma);
-    } else {
-        Mat canales[3];
-        int tipo  = canales[0].type();
-        split(img, canales);
-        switch (modo) {
-        case 1 : canales[0].convertTo(canales[0], tipo, prod, suma);
-            break;
-
-        case 2 : canales[1].convertTo(canales[1], tipo, prod, suma);
-            break;
-
-        case 3 : canales[2].convertTo(canales[2], tipo, prod, suma);
-            break;
+        Mat img32f;
+        img.convertTo(img32f,CV_32F, 1.0/255);
+        pow(img32f, gama , img32f);
+        img32f.convertTo(img, CV_8U,255);
+        imshow(foto[nfoto].nombre, img);
+        if (guardar) {
+            img.copyTo(foto[nfoto].img);
+            foto[nfoto].modificada= true;
         }
-        merge(canales, 3,img);
-    }
-
-    Mat img32f;
-    img.convertTo(img32f,CV_32F, 1.0/255);
-    pow(img32f, gama , img32f);
-    img32f.convertTo(img, CV_8U,255);
-    imshow(foto[nfoto].nombre, img);
-    if (guardar) {
-        img.copyTo(foto[nfoto].img);
-        foto[nfoto].modificada= true;
-    }
 
 }
 
@@ -1054,7 +1035,25 @@ void *propiedades(String prop[], int nfoto){
     prop[2]=fila;
     fila = "Número de canales: "+to_string(img.channels());
     prop[3]=fila;
+}
 
+//---------------------------------------------------------------------------
+void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double prodG,
+                       double sumaR, double prodR,  bool guardar){
+    Mat img;
+    foto[nfoto].img.convertTo(img, CV_8UC3);
+    Mat canales[3];
+    int tipo  = canales[0].type();
+    split(img, canales);
+    canales[0].convertTo(canales[0], tipo, prodB, sumaB);
+    canales[1].convertTo(canales[1], tipo, prodG, sumaG);
+    canales[2].convertTo(canales[2], tipo, prodR, sumaR);
+    merge(canales, 3,img);
+    imshow(foto[nfoto].nombre, img);
+        if (guardar) {
+            img.copyTo(foto[nfoto].img);
+            foto[nfoto].modificada= true;
+        }
 }
 //---------------------------------------------------------------------------
 

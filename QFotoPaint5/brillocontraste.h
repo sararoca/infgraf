@@ -22,7 +22,6 @@ private:
     double suma;
     double multiplica;
     double gama;
-    int modo;
     void actualizar();
 
 private slots:
@@ -35,10 +34,6 @@ private slots:
     void on_brillocontraste_rejected();
     void on_spinBox_3_valueChanged(int arg1);
     void on_horizontalSlider_3_valueChanged(int value);
-    void on_radioButton_clicked();
-    void on_radioButton_2_clicked();
-    void on_radioButton_3_clicked();
-    void on_radioButton_4_clicked();
 };
 
 #endif // BRILLOCONTRASTE_H
