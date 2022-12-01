@@ -1063,17 +1063,30 @@ void ecualizar_histograma(int nfoto){
     cvtColor(foto[nfoto].img, gris, COLOR_BGR2GRAY);
     Mat res;
     equalizeHist(gris, res);
-    res.convertTo(res, CV_8U);
-    Mat array[3] = {res, res, res}; //3 imagenes de un canal
-    Mat final;
-    merge(array, 3, final); // las juntamos para una imagen de 3 canales
+    cvtColor(res, res, COLOR_GRAY2BGR);
+
     imshow(foto[nfoto].nombre, res);
+
     if (true) {
-        final.copyTo(foto[nfoto].img);
+        res.copyTo(foto[nfoto].img);
         foto[nfoto].modificada= true;
     }
 }
+//---------------------------------------------------------------------------
+void ecualizar_histograma_por_canales(int nfoto){
+    Mat img;
+    foto[nfoto].img.convertTo(img, CV_8UC3);
+    Mat canales[3];
+    split(img, canales);
+    equalizeHist(canales[0],canales[0]);
+    equalizeHist(canales[1],canales[1]);
+    equalizeHist(canales[0],canales[0]);
+    merge(canales, 3,img);
+    imshow(foto[nfoto].nombre, img);
+    img.copyTo(foto[nfoto].img);
+    foto[nfoto].modificada= true;
 
+}
 
 //---------------------------------------------------------------------------
 

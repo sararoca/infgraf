@@ -199,6 +199,8 @@ void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double pro
                        double sumaR, double prodR,  bool guardar=false);
 void ecualizar_histograma(int nfoto);
 // Ajusta el histograma de una imagen en escala de grises
+void ecualizar_histograma_por_canales(int nfoto);
+// Ajusta el histograma de una inagen por canales;
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 
