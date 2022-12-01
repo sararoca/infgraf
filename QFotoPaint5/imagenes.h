@@ -197,6 +197,8 @@ void convertir_color_falso(int nfoto, int nres);
 void *propiedades(String prop[], int nfoto);
 void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double prodG,
                        double sumaR, double prodR,  bool guardar=false);
+void ecualizar_histograma(int nfoto);
+// Ajusta el histograma de una imagen en escala de grises
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 

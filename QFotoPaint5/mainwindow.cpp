@@ -546,3 +546,11 @@ void MainWindow::on_actionAjuste_de_colores_triggered()
         ac.exec();
     }
 }
+
+void MainWindow::on_actionEcualizar_histograma_triggered()
+{
+    if (foto_activa()!=-1)
+    {
+        ecualizar_histograma(foto_activa());
+    }
+}

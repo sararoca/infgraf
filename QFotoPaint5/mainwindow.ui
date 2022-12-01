@@ -468,6 +468,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="menuRotar"/>
     <addaction name="actionMedia_ponderada"/>
     <addaction name="actionAjuste_lineal"/>
+    <addaction name="actionEcualizar_histograma"/>
     <addaction name="actionEscala_de_color"/>
     <addaction name="actionPerspectiva"/>
     <addaction name="actionConvertir_a_color_falso"/>
@@ -774,6 +775,11 @@ p, li { white-space: pre-wrap; }
   <action name="actionAjuste_de_colores">
    <property name="text">
     <string>Ajuste de colores...</string>
+   </property>
+  </action>
+  <action name="actionEcualizar_histograma">
+   <property name="text">
+    <string>Ecualizar histograma...</string>
    </property>
   </action>
  </widget>

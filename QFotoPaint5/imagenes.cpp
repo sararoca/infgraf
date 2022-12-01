@@ -689,26 +689,26 @@ void ver_histograma(int nfoto, int nres, int canal)
     cvtColor(imghist, imghist, COLOR_RGBA2RGB);
     Mat gris;
     Mat hist;
-    cvtColor(foto[nfoto].img, gris, COLOR_BGR2GRAY);
-    int canales[1]={0};
-    int bins[1]={256};
-    float rango[2]={0, 256};
-    const float *rangos[] = {rango};
+    cvtColor(foto[nfoto].img , gris, COLOR_BGR2GRAY);  // Conversión a gris
+    int canales[1]= {0};
+    int bins[1]= {256};
+    float rango[2]= {0, 256};
+    const float *rangos[]= {rango};
     double vmin, vmax;
-    if (canal=3)
-        calcHist(&gris, 1, canales, noArray(), hist, 1, bins, rangos);
-    else {
-        calcHist(&(foto[nfoto].img), 1, &canal, noArray(), hist, 1, bins, rangos);
+    if(canal==3){
+        calcHist(&gris, 1, canales, noArray(), hist, 1, bins, rangos);}
+    else{
+        calcHist(&(foto[nfoto].img), 1, &canal, noArray(), hist, 1, bins, rangos);}
+    minMaxLoc(hist,&vmin, &vmax);
 
-    }
-    minMaxLoc(hist, &vmin, &vmax);
-    for (int i=0; i < 256; i++) {
+    for (int i= 0; i<256; i++){
         float poshist = 185-hist.at<float>(i)/vmax*182;
-        rectangle(imghist, Point(3*i*391.0/256, 185), Point(3*(i+1)*391.0/256,poshist), CV_RGB(canal==2?255:0,canal==1?255:0,canal==0?255:0), -1);
-        //qDebug("Celda %d: %g", i, hist.at<float>(i));
-
+        rectangle(imghist, Point(3+i*391.0/256,185),
+                  Point(3+(i+1)*391.0/256,poshist),
+                  CV_RGB(canal==2?255:0,canal==1?255:0,canal==0?255:0), -1);
     }
     crear_nueva(nres, imghist);
+
 }
 
 //---------------------------------------------------------------------------
@@ -754,29 +754,31 @@ void ver_bajorelieve(int nfoto, double angulo, double grado, int fondo, bool gua
 void ver_ajuste_lineal(int nfoto, double pmin, double pmax, bool guardar)
 {
     Mat gris;
-    cvtColor(foto[nfoto].img, gris, COLOR_BGR2GRAY);
-    int canales[1] = {0};
-    int bins[1] = {256};
-    float rango[2] = {0, 256};
-    const float *rangos[] = {rango};
+    cvtColor(foto[nfoto].img , gris, COLOR_BGR2GRAY);  // Conversión a gris
+    int canales[1]= {0};
+    int bins[1]= {256};
+    float rango[2]= {0, 256};
+    const float *rangos[]= {rango};
     Mat hist;
     calcHist(&gris, 1, canales, noArray(), hist, 1, bins, rangos);
-    normalize(hist, hist, 100, 0, NORM_L1); //NORM_L1 es la suma de todos los pixeles
-    double acum=0;
-    int vmin = 0;
-    for (; vmin < 256 && acum > pmin; vmin++)
+    normalize(hist, hist, 100, 0, NORM_L1);
+    double acum= 0;
+    int vmin= 0;
+    for (;vmin<256 && acum <pmin;vmin++) {
         acum+= hist.at<float>(vmin);
-    acum=0;
-    int vmax=255;
-    for (; vmax >= 0 && acum < pmax; vmax--)
+    }
+    acum= 0;
+    int vmax= 255;
+    for (;vmax>=0 && acum <pmax;vmax--) {
         acum+= hist.at<float>(vmax);
-    if (vmin >= vmax)vmax=vmin+1;
+    }
+    if(vmin>=vmax) vmax=vmin+1;
     double a= 255.0/(vmax-vmin);
     double b= -vmin*a;
     Mat res;
-    foto[nfoto].img.convertTo(res, CV_8U, a, b);
+    foto[nfoto].img.convertTo(res, CV_8U,a,b);
     imshow(foto[nfoto].nombre, res);
-    if (guardar) {
+    if(guardar){
         res.copyTo(foto[nfoto].img);
         foto[nfoto].modificada= true;
     }
@@ -1055,6 +1057,24 @@ void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double pro
             foto[nfoto].modificada= true;
         }
 }
+//---------------------------------------------------------------------------
+void ecualizar_histograma(int nfoto){
+    Mat gris;
+    cvtColor(foto[nfoto].img, gris, COLOR_BGR2GRAY);
+    Mat res;
+    equalizeHist(gris, res);
+    res.convertTo(res, CV_8U);
+    Mat array[3] = {res, res, res}; //3 imagenes de un canal
+    Mat final;
+    merge(array, 3, final); // las juntamos para una imagen de 3 canales
+    imshow(foto[nfoto].nombre, res);
+    if (true) {
+        final.copyTo(foto[nfoto].img);
+        foto[nfoto].modificada= true;
+    }
+}
+
+
 //---------------------------------------------------------------------------
 
 
