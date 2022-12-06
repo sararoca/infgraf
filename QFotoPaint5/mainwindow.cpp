@@ -27,6 +27,7 @@ using namespace cv;
 #include "rotarangulo.h"
 #include "infoimagen.h"
 #include "ajustecolor.h"
+#include "ecualizar.h"
 
 QString FiltroImagen = "Todos los formatos (*.jpg *.jpeg *.jpe .jp2 *.tif *.tiff *.png *.gif *.bmp *.dib *.webp *.ppm);;Archivos JPG (*.jpg *.jpeg *.jpe);;Archivos TIF (*.tif *.tiff);;Archivos PNG (*.png);;Archivos GIF (*.gif);;Archivos BMP (*.bmp *.dib);;Otros (*.*)";
 
@@ -551,6 +552,7 @@ void MainWindow::on_actionEcualizar_histograma_triggered()
 {
     if (foto_activa()!=-1)
     {
-        ecualizar_histograma(foto_activa());
+        Ecualizar e(foto_activa());
+        e.exec();
     }
 }

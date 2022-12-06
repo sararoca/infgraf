@@ -1058,7 +1058,7 @@ void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double pro
         }
 }
 //---------------------------------------------------------------------------
-void ecualizar_histograma(int nfoto){
+void ecualizar_histograma(int nfoto, bool guardar){
     Mat gris;
     cvtColor(foto[nfoto].img, gris, COLOR_BGR2GRAY);
     Mat res;
@@ -1067,24 +1067,27 @@ void ecualizar_histograma(int nfoto){
 
     imshow(foto[nfoto].nombre, res);
 
-    if (true) {
+    if (guardar) {
         res.copyTo(foto[nfoto].img);
         foto[nfoto].modificada= true;
     }
 }
 //---------------------------------------------------------------------------
-void ecualizar_histograma_por_canales(int nfoto){
+void ecualizar_histograma_por_canales(int nfoto, bool guardar){
     Mat img;
     foto[nfoto].img.convertTo(img, CV_8UC3);
     Mat canales[3];
     split(img, canales);
     equalizeHist(canales[0],canales[0]);
     equalizeHist(canales[1],canales[1]);
-    equalizeHist(canales[0],canales[0]);
+    equalizeHist(canales[2],canales[2]);
     merge(canales, 3,img);
     imshow(foto[nfoto].nombre, img);
-    img.copyTo(foto[nfoto].img);
-    foto[nfoto].modificada= true;
+
+    if (guardar) {
+        img.copyTo(foto[nfoto].img);
+        foto[nfoto].modificada= true;
+    }
 
 }
 
