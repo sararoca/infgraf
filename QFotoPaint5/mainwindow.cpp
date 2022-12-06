@@ -28,6 +28,7 @@ using namespace cv;
 #include "infoimagen.h"
 #include "ajustecolor.h"
 #include "ecualizar.h"
+#include "colorfalso.h"
 
 QString FiltroImagen = "Todos los formatos (*.jpg *.jpeg *.jpe .jp2 *.tif *.tiff *.png *.gif *.bmp *.dib *.webp *.ppm);;Archivos JPG (*.jpg *.jpeg *.jpe);;Archivos TIF (*.tif *.tiff);;Archivos PNG (*.png);;Archivos GIF (*.gif);;Archivos BMP (*.bmp *.dib);;Otros (*.*)";
 
@@ -501,9 +502,8 @@ void MainWindow::on_actionConvertir_a_color_falso_triggered()
     if (foto_activa()!=-1)
     {
         int num = foto_activa();
-        int pl= comprobar_primera_libre();
-        if (comprobar_primera_libre() != -1)
-            convertir_color_falso(num, pl);
+        ColorFalso cf(num);
+        cf.exec();
     }
 }
 

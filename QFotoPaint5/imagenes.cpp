@@ -8,6 +8,7 @@
 #include <QFileDialog>
 #include <assert.h>
 #include <QClipboard>
+#include <QMimeData>
 
 ///////////////////////////////////////////////////////////////////
 /////////  VARIABLES GLOBALES                        //////////////
@@ -994,34 +995,45 @@ void copiar_portapapeles (Mat img)
 void nueva_portapapeles (int nfoto)
 {
     QClipboard *clipboard = QGuiApplication::clipboard();
-    QImage image = clipboard->image();
-    assert(nfoto>=0 && nfoto<MAX_VENTANAS && !foto[nfoto].usada && !image.isNull());
+    const QMimeData *mimeData = clipboard->mimeData( );
 
-    Mat mat(image.height(), image.width(), CV_8UC3);
-    cvtColor(mat, mat, COLOR_RGB2BGR);
+    if (mimeData->hasImage())
+    {
+        QImage imq = clipboard->image();
 
-    foto[nfoto].nombre= "nueva-"+to_string(nfoto)+".png";
-    foto[nfoto].nombref= foto[nfoto].nombre;
-    foto[nfoto].img=mat;
-    namedWindow(foto[nfoto].nombre, WINDOW_NO_POPUP+WINDOW_MOVE_RIGHT);
-    foto[nfoto].orden= numpos++;
-    imshow(foto[nfoto].nombre, foto[nfoto].img);
-    foto[nfoto].usada= true;
-    foto[nfoto].modificada= true;
-    setMouseCallback(foto[nfoto].nombre, callback, reinterpret_cast<void*>(nfoto));
-    escribir_barra_estado();
+        Mat res;
+        Mat image(imq.height(), imq.width(), CV_8UC4, imq.scanLine(0));
+        cvtColor(image, res, COLOR_RGBA2RGB);
+
+        foto[nfoto].nombre= "nueva-"+to_string(nfoto)+".png";
+        foto[nfoto].nombref= foto[nfoto].nombre;
+        foto[nfoto].img=res;
+        namedWindow(foto[nfoto].nombre, WINDOW_NO_POPUP+WINDOW_MOVE_RIGHT);
+        foto[nfoto].orden= numpos++;
+        imshow(foto[nfoto].nombre, foto[nfoto].img);
+        foto[nfoto].usada= true;
+        foto[nfoto].modificada= true;
+        setMouseCallback(foto[nfoto].nombre, callback, reinterpret_cast<void*>(nfoto));
+        escribir_barra_estado();
+    }
 
 }
 
 //---------------------------------------------------------------------------
 
 
-void convertir_color_falso(int nfoto, int nres)
+void convertir_color_falso(int nfoto, int paleta, bool guardar)
 {
     Mat src = foto[nfoto].img;
-    Mat dest;
-    applyColorMap(src, dest, COLORMAP_HSV);
-    crear_nueva(nres, dest);
+    Mat res;
+    applyColorMap(src, res, paleta);
+
+    if (guardar) {
+        crear_nueva(primera_libre(), res);
+    }
+    else {
+        imshow("Color falso", res);
+    }
 }
 
 //----------------------------------------------------------------

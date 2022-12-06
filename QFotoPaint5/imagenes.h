@@ -192,7 +192,7 @@ void copiar_portapapeles (Mat img);
 void nueva_portapapeles (int nfoto);
 //Crea una nueva entrada, en la posición nfoto, usando la imagen que hay en el portapapeles
 
-void convertir_color_falso(int nfoto, int nres);
+void convertir_color_falso(int nfoto, int paleta, bool guardar=false);
 
 void *propiedades(String prop[], int nfoto);
 void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double prodG,

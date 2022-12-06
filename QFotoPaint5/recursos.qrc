@@ -18,5 +18,27 @@
         <file>imagenes/cielo.jpg</file>
         <file>imagenes/madera.jpg</file>
         <file>imagenes/gris.png</file>
+        <file>imagenes/colorscale_autumn.jpg</file>
+        <file>imagenes/colorscale_bone.jpg</file>
+        <file>imagenes/colorscale_cividis.jpg</file>
+        <file>imagenes/colorscale_cool.jpg</file>
+        <file>imagenes/colorscale_deepgreen.jpg</file>
+        <file>imagenes/colorscale_hot.jpg</file>
+        <file>imagenes/colorscale_hsv.jpg</file>
+        <file>imagenes/colorscale_inferno.jpg</file>
+        <file>imagenes/colorscale_jet.jpg</file>
+        <file>imagenes/colorscale_magma.jpg</file>
+        <file>imagenes/colorscale_ocean.jpg</file>
+        <file>imagenes/colorscale_parula.jpg</file>
+        <file>imagenes/colorscale_pink.jpg</file>
+        <file>imagenes/colorscale_plasma.jpg</file>
+        <file>imagenes/colorscale_rainbow.jpg</file>
+        <file>imagenes/colorscale_spring.jpg</file>
+        <file>imagenes/colorscale_summer.jpg</file>
+        <file>imagenes/colorscale_turbo.jpg</file>
+        <file>imagenes/colorscale_twilight.jpg</file>
+        <file>imagenes/colorscale_twilight_shifted.jpg</file>
+        <file>imagenes/colorscale_viridis.jpg</file>
+        <file>imagenes/colorscale_winter.jpg</file>
     </qresource>
 </RCC>

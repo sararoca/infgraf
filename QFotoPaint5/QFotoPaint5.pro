@@ -19,6 +19,7 @@ SOURCES += main.cpp\
     ajustelineal.cpp \
     bajorelieve.cpp \
     capturarvideo.cpp \
+    colorfalso.cpp \
     ecualizar.cpp \
     infoimagen.cpp \
     mainwindow.cpp \
@@ -43,6 +44,7 @@ HEADERS  += mainwindow.h \
     ajustelineal.h \
     bajorelieve.h \
     capturarvideo.h \
+    colorfalso.h \
     ecualizar.h \
     imagenes.h \
     dialognueva.h \
@@ -66,6 +68,7 @@ FORMS    += mainwindow.ui \
     ajustelineal.ui \
     bajorelieve.ui \
     capturarvideo.ui \
+    colorfalso.ui \
     dialognueva.ui \
     brillocontraste.ui \
     ecualizar.ui \
