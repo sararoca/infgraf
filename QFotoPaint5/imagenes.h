@@ -210,6 +210,10 @@ void ver_texto(int nfoto, QString txt, int x, int y, int font, int size, QColor 
 
 void ver_modelos_color(int nfoto, int code, bool guardar=false);
 
+void ver_morfologia(int nfoto, int nItera, int modo, bool guardar=false);
+//Aplica las operaciones de formologia matematica durante nItera veces
+// modo: 1 Erocionar, 2 Dilatar, 3 Cerrar y 4 Abrir
+void ninguna_accion_trazos(int factual, int x, int y);
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 

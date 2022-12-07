@@ -24,6 +24,8 @@ private slots:
 
     void on_radioButton_3_clicked();
 
+    void on_horizontalSlider_valueChanged(int value);
+
 private:
     Ui::Rotarangulo *ui;
     int nfoto;

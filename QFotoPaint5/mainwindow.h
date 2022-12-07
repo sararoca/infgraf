@@ -90,6 +90,9 @@ private slots:
     void on_actionModelos_de_color_triggered();
     void on_actionCopiar_a_portapapeles_triggered();
     void on_actionSuavizado_triggered();
+    void on_actionMorfolog_a_triggered();
+    void on_toolButton_10_clicked();
+    void on_actionTrazos_triggered();
 };
 
 extern MainWindow *w;

@@ -54,3 +54,11 @@ void Rotarangulo::on_radioButton_3_clicked()
     rotar_angulo(foto[nfoto].img,rotada,angulo,escala,modo);
     imshow("Rotar imagen" , rotada);
 }
+
+void Rotarangulo::on_horizontalSlider_valueChanged(int value)
+{
+    escala= value/100.0;
+    Mat rotada;
+    rotar_angulo(foto[nfoto].img,rotada,angulo,escala,modo);
+    imshow("Rotar imagen" , rotada);
+}

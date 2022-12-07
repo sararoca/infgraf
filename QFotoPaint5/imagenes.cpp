@@ -239,6 +239,15 @@ void ninguna_accion (int factual, int x, int y)
 
 //---------------------------------------------------------------------------
 
+void ninguna_accion_trazos(int factual, int x, int y)
+{
+    Mat res= foto[factual].img.clone();
+    circle(res, Point(x, y), radio_pincel/5, CV_RGB(255,255,255), 2, LINE_AA);
+    imshow(foto[factual].nombre, res);
+}
+
+//---------------------------------------------------------------------------
+
 void cb_close (int factual)
 {
     if (foto[factual].usada && !foto[factual].img.empty()) {
@@ -374,11 +383,31 @@ void cb_ver_linea (int factual, int x, int y)
 
 void cb_trazos(int factual, int x, int y)
 {
-    //if(abs(anterior.x-x)>20 or abs(anterior.y-y)>20){}
-        line(foto[factual].img, Point(downx, downy), Point(x,y), color_pincel, radio_pincel/10);
+    if(abs(anterior.x-x)>5 or abs(anterior.y-y)>5){
+
+        Mat im= foto[factual].img;  // Ojo: esto no es una copia, sino a la misma imagen
+        if (difum_pincel==0){
+            line(im, Point(anterior.x, anterior.y), Point(x,y), color_pincel, (radio_pincel/4)*2+1);
+            // line(im, Point(downx, downy), Point(x,y), color_pincel, radio_pincel*2+1);
+        }
+        else {
+            Mat res(im.size(), im.type(), color_pincel);
+            Mat cop(im.size(), im.type(), CV_RGB(0,0,0));
+            line(cop, Point(anterior.x, anterior.y), Point(x,y), CV_RGB(255,255,255), (radio_pincel/4)*2+1);
+            blur(cop, cop, Size((difum_pincel/4)*2+1, (difum_pincel/4)*2+1));
+            multiply(res, cop, res, 1.0/255.0);
+            bitwise_not(cop, cop);
+            multiply(im, cop, im, 1.0/255.0);
+            im= res + im;
+        }
         anterior.x=x;
         anterior.y=y;
+        imshow(foto[factual].nombre, im);
+        foto[factual].modificada= true;
 
+
+
+    }
 }
 //---------------------------------------------------------------------------
 
@@ -613,12 +642,10 @@ void callback (int event, int x, int y, int flags, void *_nfoto)
         break;
         // 2.7. Herramienta TRAZOS
     case HER_TRAZOS:
-        if (event==EVENT_LBUTTONUP)
-            anterior.x=-1;
-        else if (event==EVENT_MOUSEMOVE && flags==EVENT_FLAG_LBUTTON)
+        if (flags==EVENT_FLAG_LBUTTON)
             cb_trazos(factual,x,y);
         else
-            ninguna_accion(factual, x, y);
+            ninguna_accion_trazos(factual, x, y);
         break;
         // 2.8. Herramienta
     case HER_SUAVIZADO:
@@ -1239,6 +1266,43 @@ void ver_modelos_color(int nfoto, int code, bool guardar)
 }
 
 //---------------------------------------------------------------------------
+void ver_morfologia(int nfoto, int nItera, int modo, bool guardar){
+    Mat res;
+    Mat element = getStructuringElement(MORPH_RECT,
+                                        Size( 3, 3),
+                                        Point( -1, -1 ) );
+
+    switch (modo) {
+
+    case 1:
+        erode(foto[nfoto].img , res , element ,Point(-1,-1), nItera);
+        break;
+    case 2:
+        dilate(foto[nfoto].img , res , element ,Point(-1,-1), nItera);
+        break;
+    case 3:
+        foto[nfoto].img.copyTo(res);
+        for (int i=0; i < nItera; i++) {
+           dilate(res , res , element ,Point(-1,-1), nItera);
+           erode(res , res , element ,Point(-1,-1), nItera);
+        }
+        break;
+    case 4:
+        foto[nfoto].img.copyTo(res);
+        for (int i=0; i < nItera; i++) {
+            erode(res , res , element ,Point(-1,-1), nItera);
+            dilate(res , res , element ,Point(-1,-1), nItera);
+        }
+        break;
+
+    }
+    imshow("Morfologia", res);
+    if(guardar){
+        res.copyTo(foto[nfoto].img);
+        mostrar(nfoto);
+        foto[nfoto].modificada = true;
+    }
+}
 
 
 //---------------------------------------------------------------------------

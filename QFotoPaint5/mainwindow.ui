@@ -274,7 +274,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QToolButton" name="toolButton_6">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>370</x>
       <y>0</y>
       <width>41</width>
       <height>41</height>
@@ -385,6 +385,29 @@ p, li { white-space: pre-wrap; }
      <bool>true</bool>
     </property>
    </widget>
+   <widget class="QToolButton" name="toolButton_10">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>0</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="recursos.qrc">
+      <normaloff>:/imagenes/lapiz.png</normaloff>:/imagenes/lapiz.png</iconset>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
+    </property>
+    <property name="autoExclusive">
+     <bool>true</bool>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -453,6 +476,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionElipse"/>
     <addaction name="actionArco_Iris"/>
     <addaction name="actionSuavizado"/>
+    <addaction name="actionTrazos"/>
    </widget>
    <widget class="QMenu" name="menuTransformar">
     <property name="title">
@@ -497,6 +521,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionPichar_Estirar"/>
     <addaction name="actionPerfilar"/>
     <addaction name="actionTexto"/>
+    <addaction name="actionMorfolog_a"/>
    </widget>
    <widget class="QMenu" name="menuV_deo">
     <property name="title">
@@ -803,6 +828,16 @@ p, li { white-space: pre-wrap; }
   <action name="actionSuavizado">
    <property name="text">
     <string>Suavizado</string>
+   </property>
+  </action>
+  <action name="actionMorfolog_a">
+   <property name="text">
+    <string>Morfología...</string>
+   </property>
+  </action>
+  <action name="actionTrazos">
+   <property name="text">
+    <string>Trazos</string>
    </property>
   </action>
  </widget>

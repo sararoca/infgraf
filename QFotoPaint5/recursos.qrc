@@ -41,5 +41,6 @@
         <file>imagenes/colorscale_viridis.jpg</file>
         <file>imagenes/colorscale_winter.jpg</file>
         <file>imagenes/arco-iris.png</file>
+        <file>imagenes/lapiz.png</file>
     </qresource>
 </RCC>

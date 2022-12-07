@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Rotarangulo</class>
- <widget class="QDialog" name="Rotarangulo">
+ <class>Morfologia</class>
+ <widget class="QDialog" name="Morfologia">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>473</width>
-    <height>300</height>
+    <width>400</width>
+    <height>194</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,9 +16,9 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>240</y>
-     <width>341</width>
+     <x>200</x>
+     <y>150</y>
+     <width>171</width>
      <height>32</height>
     </rect>
    </property>
@@ -29,11 +29,37 @@
     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
+  <widget class="QRadioButton" name="radioButton_4">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>110</y>
+     <width>82</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Abrir</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="radioButton_2">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>70</y>
+     <width>82</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Dilatar</string>
+   </property>
+  </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>10</y>
+     <x>20</x>
+     <y>20</y>
      <width>171</width>
      <height>16</height>
     </rect>
@@ -49,78 +75,17 @@ color: rgb(255, 255, 255);</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QSlider" name="horizontalSlider">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>30</y>
-     <width>271</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="minimum">
-    <number>50</number>
-   </property>
-   <property name="maximum">
-    <number>200</number>
-   </property>
-   <property name="value">
-    <number>100</number>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="tickPosition">
-    <enum>QSlider::TicksBelow</enum>
-   </property>
-   <property name="tickInterval">
-    <number>20</number>
-   </property>
-  </widget>
-  <widget class="QRadioButton" name="radioButton_2">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>60</y>
-     <width>82</width>
-     <height>17</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Bordes</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>70</y>
-     <width>271</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(128, 128, 128);
-color: rgb(255, 255, 255);</string>
-   </property>
-   <property name="text">
-    <string>Ángulo</string>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
   <widget class="QRadioButton" name="radioButton">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>40</y>
+     <x>30</x>
+     <y>50</y>
      <width>82</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Original</string>
+    <string>Erocionar</string>
    </property>
    <property name="checked">
     <bool>true</bool>
@@ -129,23 +94,39 @@ color: rgb(255, 255, 255);</string>
   <widget class="QRadioButton" name="radioButton_3">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>80</y>
+     <x>30</x>
+     <y>90</y>
      <width>82</width>
      <height>17</height>
     </rect>
    </property>
    <property name="text">
-    <string>Sin bordes</string>
+    <string>Cerrar</string>
+   </property>
+  </widget>
+  <widget class="QSpinBox" name="spinBox">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>60</y>
+     <width>81</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>10</number>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>10</y>
-     <width>271</width>
-     <height>16</height>
+     <x>240</x>
+     <y>20</y>
+     <width>101</width>
+     <height>20</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -153,35 +134,10 @@ color: rgb(255, 255, 255);</string>
 color: rgb(255, 255, 255);</string>
    </property>
    <property name="text">
-    <string>Scala</string>
+    <string>nº Iteraciones</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QDial" name="dial">
-   <property name="geometry">
-    <rect>
-     <x>60</x>
-     <y>100</y>
-     <width>161</width>
-     <height>141</height>
-    </rect>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::RightToLeft</enum>
-   </property>
-   <property name="maximum">
-    <number>360</number>
-   </property>
-   <property name="wrapping">
-    <bool>true</bool>
-   </property>
-   <property name="notchTarget">
-    <double>3.000000000000000</double>
-   </property>
-   <property name="notchesVisible">
-    <bool>true</bool>
    </property>
   </widget>
  </widget>
@@ -190,7 +146,7 @@ color: rgb(255, 255, 255);</string>
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Rotarangulo</receiver>
+   <receiver>Morfologia</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -206,7 +162,7 @@ color: rgb(255, 255, 255);</string>
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Rotarangulo</receiver>
+   <receiver>Morfologia</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

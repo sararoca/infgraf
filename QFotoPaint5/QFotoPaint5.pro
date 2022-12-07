@@ -28,6 +28,7 @@ SOURCES += main.cpp\
     brillocontraste.cpp \
     matsatlum.cpp \
     modelocolor.cpp \
+    morfologia.cpp \
     movimiento.cpp \
     perfilado.cpp \
     perspectiva.cpp \
@@ -54,6 +55,7 @@ HEADERS  += mainwindow.h \
     infoimagen.h \
     matsatlum.h \
     modelocolor.h \
+    morfologia.h \
     movimiento.h \
     perfilado.h \
     perspectiva.h \
@@ -79,6 +81,7 @@ FORMS    += mainwindow.ui \
     infoimagen.ui \
     matsatlum.ui \
     modelocolor.ui \
+    morfologia.ui \
     movimiento.ui \
     perfilado.ui \
     perspectiva.ui \
