@@ -9,6 +9,7 @@
 #include <assert.h>
 #include <QClipboard>
 #include <QMimeData>
+#include <QPixmap>
 
 ///////////////////////////////////////////////////////////////////
 /////////  VARIABLES GLOBALES                        //////////////
@@ -261,25 +262,34 @@ void cb_punto (int factual, int x, int y, Scalar color=color_pincel)
     if (difum_pincel==0)
         circle(im, Point(x, y), radio_pincel, color, -1, LINE_AA);
     else {
-        int t = radio_pincel+ difum_pincel;
-        int posx = t , posy = t;
-        Rect roi(x-t, y-t , 2*t+1, 2*t+1);
-        if(roi.x < 0){
-            roi.height+= roi.x;
-            posx = roi.x;
-            roi.x= 0;
+        int tam = radio_pincel*difum_pincel;
+        Rect roi(x-tam, y-tam, 2*tam+1, 2*tam+1);
+        int posx=tam;
+        int posy=tam;
+        if (roi.x<0)
+        {
+            roi.width += roi.x;
+            posx += roi.x;
+            roi.x = 0;
         }
-        if(roi.y < 0){
-            roi.height+= roi.y;
-            posy = roi.y;
-            roi.y= 0;
+
+        if (roi.y < 0)
+        {
+            roi.height += roi.y;
+            posy += roi.y;
+            roi.y = 0;
         }
-        if(roi.x + roi.width > im.cols){
-            roi.width = im.cols-roi.x;
+
+        if (roi.x+roi.width > im.cols)
+        {
+            roi.width= im.cols-roi.x;
         }
-        if(roi.x + roi.height > im.rows){
-            roi.height = im.rows-roi.y;
+
+        if (roi.y+roi.height > im.rows)
+        {
+            roi.height = im.rows - roi.y;
         }
+
         Mat frag = im(roi);
         Mat res(frag.size(), im.type(), color);
         Mat cop(frag.size(), im.type(), CV_RGB(0,0,0));
@@ -293,7 +303,9 @@ void cb_punto (int factual, int x, int y, Scalar color=color_pincel)
     imshow(foto[factual].nombre, im);
     foto[factual].modificada= true;
 }
+
 //---------------------------------------------------------------------------
+
 Scalar ColorArcoiris(){
     static Scalar colorActual= CV_RGB(255,0,0);
     static int estado = 0;
@@ -321,13 +333,12 @@ Scalar ColorArcoiris(){
     return colorActual;
 }
 
+//---------------------------------------------------------------------------
 
 void cb_arco_iris (int factual, int x, int y)
 {
     cb_punto(factual,x,y , ColorArcoiris());
 }
-//---------------------------------------------------------------------------
-
 
 //---------------------------------------------------------------------------
 
@@ -360,6 +371,7 @@ void cb_ver_linea (int factual, int x, int y)
 }
 
 //---------------------------------------------------------------------------
+
 void cb_trazos(int factual, int x, int y)
 {
     //if(abs(anterior.x-x)>20 or abs(anterior.y-y)>20){}
@@ -430,7 +442,6 @@ void cb_ver_elipse (int factual, int x, int y)
 
 //---------------------------------------------------------------------------
 
-
 void cb_seleccionar (int factual, int x, int y)
 {
     Mat im= foto[factual].img;
@@ -466,6 +477,56 @@ void cb_ver_seleccion (int factual, int x, int y, bool foto_roi)
     rectangle(res, p1, p2, CV_RGB(255,foto_roi?0:255,0),2);
     imshow(foto[factual].nombre, res);
 }
+
+//---------------------------------------------------------------------------
+
+void cb_suavizado (int factual, int x, int y)
+{
+    Mat im= foto[factual].img;  // Ojo: esto no es una copia, sino a la misma imagen
+    int tam = radio_pincel*difum_pincel;
+    Rect roi(x-tam, y-tam, 2*tam+1, 2*tam+1);
+    int posx=tam;
+    int posy=tam;
+    if (roi.x<0)
+    {
+        roi.width += roi.x;
+        posx += roi.x;
+        roi.x = 0;
+    }
+
+    if (roi.y < 0)
+    {
+        roi.height += roi.y;
+        posy += roi.y;
+        roi.y = 0;
+    }
+
+    if (roi.x+roi.width > im.cols)
+    {
+        roi.width= im.cols-roi.x;
+    }
+
+    if (roi.y+roi.height > im.rows)
+    {
+        roi.height = im.rows - roi.y;
+    }
+
+    Mat frag = im(roi);
+    Mat res;
+    frag.copyTo(res);
+    Mat cop(frag.size(), im.type(), CV_RGB(0,0,0));
+    circle(cop, Point(posx, posy), radio_pincel, CV_RGB(255,255,255), -1, LINE_AA);
+    GaussianBlur(res, res, Size(difum_pincel*2-1, difum_pincel*2-1), 0);
+
+    multiply(res, cop, res, 1.0/255.0);
+    bitwise_not(cop, cop);
+    multiply(frag, cop, frag, 1.0/255.0);
+    frag= res + frag;
+
+    imshow(foto[factual].nombre, im);
+    foto[factual].modificada= true;
+}
+
 
 //---------------------------------------------------------------------------
 
@@ -550,11 +611,19 @@ void callback (int event, int x, int y, int flags, void *_nfoto)
         else
             ninguna_accion(factual, x, y);
         break;
+        // 2.7. Herramienta TRAZOS
     case HER_TRAZOS:
         if (event==EVENT_LBUTTONUP)
             anterior.x=-1;
         else if (event==EVENT_MOUSEMOVE && flags==EVENT_FLAG_LBUTTON)
             cb_trazos(factual,x,y);
+        else
+            ninguna_accion(factual, x, y);
+        break;
+        // 2.8. Herramienta
+    case HER_SUAVIZADO:
+        if (flags==EVENT_FLAG_LBUTTON)
+            cb_suavizado(factual, x, y);
         else
             ninguna_accion(factual, x, y);
         break;
@@ -976,17 +1045,25 @@ void ver_perspectiva(int nfoto1, int nfoto2, Point2f pt1[], Point2f pt2[], bool 
 
 void copiar_portapapeles (Mat img)
 {
-    //assert(!img.empty());
     QClipboard *clipboard = QGuiApplication::clipboard();
-    //QImage imq = QImage(img.cols, img.rows, QImage::Format_Alpha8);
+    cvtColor(img, img, COLOR_BGR2RGB);
+    QImage imq;
 
-    QImage::Format format=QImage::Format_Grayscale8;
-    int bpp=img.channels();
-    if(bpp==3)format=QImage::Format_RGB888;
-    QImage imq = QImage(img.cols,img.rows,format).rgbSwapped();
-    //QImage imq(img.data, img.cols, img.rows, QImage::Format_RGB888);
+    if(img.type()==CV_8UC1)
+        {
+            const uchar *qImageBuffer = (const uchar*)img.data;
+            imq = QImage(qImageBuffer, img.cols, img.rows, img.step, QImage::Format_Indexed8);
 
-    clipboard->setImage(imq, QClipboard::Clipboard);
+        }
+       else if(img.type()==CV_8UC3)
+        {
+            const uchar *qImageBuffer = (const uchar*)img.data;
+            imq = QImage(qImageBuffer, img.cols, img.rows, img.step, QImage::Format_RGB888);
+        }
+
+    QPixmap qpm = QPixmap::fromImage(imq);
+    clipboard->setPixmap(qpm);
+
 }
 
 //---------------------------------------------------------------------------
@@ -994,7 +1071,7 @@ void copiar_portapapeles (Mat img)
 
 void nueva_portapapeles (int nfoto)
 {
-    QClipboard *clipboard = QGuiApplication::clipboard();
+    const QClipboard *clipboard = QGuiApplication::clipboard();
     const QMimeData *mimeData = clipboard->mimeData( );
 
     if (mimeData->hasImage())
@@ -1037,7 +1114,10 @@ void convertir_color_falso(int nfoto, int paleta, bool guardar)
 }
 
 //----------------------------------------------------------------
-void *propiedades(String prop[], int nfoto){
+
+
+void *propiedades(String prop[], int nfoto)
+{
     Mat img = foto[nfoto].img;
     String fila = "Altura: "+to_string(img.rows);
     prop[0]=fila;
@@ -1052,8 +1132,11 @@ void *propiedades(String prop[], int nfoto){
 }
 
 //---------------------------------------------------------------------------
+
+
 void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double prodG,
-                       double sumaR, double prodR,  bool guardar){
+                       double sumaR, double prodR,  bool guardar)
+{
     Mat img;
     foto[nfoto].img.convertTo(img, CV_8UC3);
     Mat canales[3];
@@ -1069,8 +1152,12 @@ void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double pro
             foto[nfoto].modificada= true;
         }
 }
+
 //---------------------------------------------------------------------------
-void ecualizar_histograma(int nfoto, bool guardar){
+
+
+void ecualizar_histograma(int nfoto, bool guardar)
+{
     Mat gris;
     cvtColor(foto[nfoto].img, gris, COLOR_BGR2GRAY);
     Mat res;
@@ -1084,8 +1171,12 @@ void ecualizar_histograma(int nfoto, bool guardar){
         foto[nfoto].modificada= true;
     }
 }
+
 //---------------------------------------------------------------------------
-void ecualizar_histograma_por_canales(int nfoto, bool guardar){
+
+
+void ecualizar_histograma_por_canales(int nfoto, bool guardar)
+{
     Mat img;
     foto[nfoto].img.convertTo(img, CV_8UC3);
     Mat canales[3];
@@ -1102,6 +1193,53 @@ void ecualizar_histograma_por_canales(int nfoto, bool guardar){
     }
 
 }
+
+//---------------------------------------------------------------------------
+
+
+void ver_texto(int nfoto, QString txt, int x, int y, int font, int size, QColor clr, bool guardar)
+{
+
+    Mat img = foto[nfoto].img;
+    Mat imres = img.clone();
+    Point pos(x, y);
+    double scale = size/21;
+    int r,g,b;
+    clr.getRgb(&r, &g, &b);
+    Scalar color(b,g,r);
+    putText(imres, txt.toLatin1().data(), pos,font,scale,color); //thickness=1, line_type=8, bottomLeftOrigin=false
+    imshow("Previsualizar texto", imres);
+
+    if (guardar)
+    {
+        imres.copyTo(foto[nfoto].img);
+        foto[nfoto].modificada= true;
+        destroyWindow("Previsualizar texto");
+    }
+}
+
+//---------------------------------------------------------------------------
+
+
+void ver_modelos_color(int nfoto, int code, bool guardar)
+{
+    Mat src = foto[nfoto].img;
+    Mat dst;
+
+    if (src.type() == CV_8UC1 && (code != COLOR_GRAY2BGR || code != COLOR_GRAY2RGB))
+    {
+        return;
+    }
+
+    cvtColor(src, dst, code);
+
+    if (guardar) {
+        crear_nueva(primera_libre(), dst);
+    }
+}
+
+//---------------------------------------------------------------------------
+
 
 //---------------------------------------------------------------------------
 

@@ -27,12 +27,14 @@ SOURCES += main.cpp\
     dialognueva.cpp \
     brillocontraste.cpp \
     matsatlum.cpp \
+    modelocolor.cpp \
     movimiento.cpp \
     perfilado.cpp \
     perspectiva.cpp \
     pincharestirar.cpp \
     rotarangulo.cpp \
     suavizados.cpp \
+    texto.cpp \
     video.cpp \
     rotaravideo.cpp \
     mediaponderada.cpp \
@@ -51,12 +53,14 @@ HEADERS  += mainwindow.h \
     brillocontraste.h \
     infoimagen.h \
     matsatlum.h \
+    modelocolor.h \
     movimiento.h \
     perfilado.h \
     perspectiva.h \
     pincharestirar.h \
     rotarangulo.h \
     suavizados.h \
+    texto.h \
     video.h \
     rotaravideo.h \
     mediaponderada.h \
@@ -74,6 +78,7 @@ FORMS    += mainwindow.ui \
     ecualizar.ui \
     infoimagen.ui \
     matsatlum.ui \
+    modelocolor.ui \
     movimiento.ui \
     perfilado.ui \
     perspectiva.ui \
@@ -83,7 +88,8 @@ FORMS    += mainwindow.ui \
     rotaravideo.ui \
     mediaponderada.ui \
     acercade.ui \
-    mediadevideo.ui
+    mediadevideo.ui \
+    texto.ui
 
 INCLUDEPATH += "C:\OpenCV\OpenCV4.6.0G\include"
 

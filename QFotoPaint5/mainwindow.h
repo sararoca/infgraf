@@ -80,13 +80,16 @@ private slots:
     void on_actionPerfilar_triggered();
     void on_actionPerspectiva_triggered();
     void on_actionNueva_imagen_desde_el_portapapeles_triggered();
-    void on_actionCopiar_a_portapapeles_triggered();
     void on_actionConvertir_a_color_falso_triggered();
     void on_actionMovimiento_triggered();
     void on_actionOtros_triggered();
     void on_actionInformaci_n_de_imagenes_triggered();
     void on_actionAjuste_de_colores_triggered();
     void on_actionEcualizar_histograma_triggered();
+    void on_actionTexto_triggered();
+    void on_actionModelos_de_color_triggered();
+    void on_actionCopiar_a_portapapeles_triggered();
+    void on_actionSuavizado_triggered();
 };
 
 extern MainWindow *w;

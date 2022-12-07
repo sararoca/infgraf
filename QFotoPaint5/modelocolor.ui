@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ModeloColor</class>
+ <widget class="QDialog" name="ModeloColor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>232</width>
+    <height>147</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Modelos de color</string>
+  </property>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>70</y>
+     <width>211</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>211</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="editable">
+    <bool>true</bool>
+   </property>
+   <property name="currentText">
+    <string>RGB to GRAY</string>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <item>
+    <property name="text">
+     <string>RGB to GRAY</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>RGB to XYZ</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>RGB to YCrCb</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>RGB to HSV</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>RGB to Lab</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>RGB to Luv</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>RGB to HLS</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>RGB to YUV</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BGR to GRAY</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BGR to XYZ</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BGR to YCrCb</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BGR to HSV</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BGR to Lab</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BGR to Luv</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BGR to HLS</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>BGR to YUV</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>GRAY to RGB</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>GRAY to BGR</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>XYZ to RGB</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>XYZ to BGR</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>YCrCb to RGB</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>YCrCb to BGR</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>HSV to RGB</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>HSV to BGR</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lab to RGB</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Lab to BGR</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Luv to RGB</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Luv to BGR</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>HLS to RGB</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>HLS to BGR</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>YUV to RGB</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>YUV to BGR</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>20</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(128, 128, 128);
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Tipo</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>ModeloColor</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>ModeloColor</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

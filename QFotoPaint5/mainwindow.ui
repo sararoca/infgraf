@@ -374,6 +374,10 @@ p, li { white-space: pre-wrap; }
     <property name="text">
      <string>...</string>
     </property>
+    <property name="icon">
+     <iconset resource="recursos.qrc">
+      <normaloff>:/imagenes/arco-iris.png</normaloff>:/imagenes/arco-iris.png</iconset>
+    </property>
     <property name="checkable">
      <bool>true</bool>
     </property>
@@ -434,8 +438,9 @@ p, li { white-space: pre-wrap; }
     <addaction name="separator"/>
     <addaction name="separator"/>
     <addaction name="actionCopiar_a_nueva"/>
-    <addaction name="actionCopiar_desde_portapapeles"/>
+    <addaction name="actionCopiar_a_portapapeles"/>
     <addaction name="menuVer_histograma"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuHerramientas">
     <property name="title">
@@ -447,6 +452,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionRect_ngulo"/>
     <addaction name="actionElipse"/>
     <addaction name="actionArco_Iris"/>
+    <addaction name="actionSuavizado"/>
    </widget>
    <widget class="QMenu" name="menuTransformar">
     <property name="title">
@@ -472,6 +478,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionEscala_de_color"/>
     <addaction name="actionPerspectiva"/>
     <addaction name="actionConvertir_a_color_falso"/>
+    <addaction name="actionModelos_de_color"/>
    </widget>
    <widget class="QMenu" name="menuEfectos">
     <property name="title">
@@ -489,6 +496,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionBajo_relieve"/>
     <addaction name="actionPichar_Estirar"/>
     <addaction name="actionPerfilar"/>
+    <addaction name="actionTexto"/>
    </widget>
    <widget class="QMenu" name="menuV_deo">
     <property name="title">
@@ -742,11 +750,6 @@ p, li { white-space: pre-wrap; }
     <string>Perspectiva...</string>
    </property>
   </action>
-  <action name="actionCopiar_desde_portapapeles">
-   <property name="text">
-    <string>Copiar a portapapeles</string>
-   </property>
-  </action>
   <action name="actionNueva_imagen_desde_el_portapapeles">
    <property name="text">
     <string>Nueva imagen desde el portapapeles...</string>
@@ -780,6 +783,26 @@ p, li { white-space: pre-wrap; }
   <action name="actionEcualizar_histograma">
    <property name="text">
     <string>Ecualizar histograma...</string>
+   </property>
+  </action>
+  <action name="actionTexto">
+   <property name="text">
+    <string>Texto...</string>
+   </property>
+  </action>
+  <action name="actionModelos_de_color">
+   <property name="text">
+    <string>Modelos de color...</string>
+   </property>
+  </action>
+  <action name="actionCopiar_a_portapapeles">
+   <property name="text">
+    <string>Copiar a portapapeles</string>
+   </property>
+  </action>
+  <action name="actionSuavizado">
+   <property name="text">
+    <string>Suavizado</string>
    </property>
   </action>
  </widget>

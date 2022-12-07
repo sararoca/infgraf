@@ -6,6 +6,7 @@ using namespace std;
 #include <opencv2/opencv.hpp>
 using namespace cv;
 #include "qstring.h"
+#include "qcolor.h"
 
 
 ///////////////////////////////////////////////////////////////////
@@ -42,7 +43,7 @@ struct ventana {
 //    Enumerado con los distintos tipos posibles de herramientas
 //    que se pueden usar. Añadir nuevas aquí
 
-enum tipo_herramienta {HER_PUNTO, HER_LINEA, HER_SELECCION, HER_RECTANGULO, HER_ELIPSE, HER_ARCOIRIS,HER_TRAZOS};
+enum tipo_herramienta {HER_PUNTO, HER_LINEA, HER_SELECCION, HER_RECTANGULO, HER_ELIPSE, HER_ARCOIRIS, HER_TRAZOS, HER_SUAVIZADO};
 
 
 ///////////////////////////////////////////////////////////////////
@@ -195,12 +196,20 @@ void nueva_portapapeles (int nfoto);
 void convertir_color_falso(int nfoto, int paleta, bool guardar=false);
 
 void *propiedades(String prop[], int nfoto);
+
 void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double prodG,
                        double sumaR, double prodR,  bool guardar=false);
+
 void ecualizar_histograma(int nfoto, bool guardar=false );
 // Ajusta el histograma de una imagen en escala de grises
+
 void ecualizar_histograma_por_canales(int nfoto, bool guardar= false);
 // Ajusta el histograma de una inagen por canales;
+
+void ver_texto(int nfoto, QString txt, int x, int y, int font, int size, QColor clr, bool guardar=false);
+
+void ver_modelos_color(int nfoto, int code, bool guardar=false);
+
 string Lt1(string cadena);
 // Convertir una cadena de UTF8 a Latin1
 

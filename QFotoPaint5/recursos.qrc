@@ -40,5 +40,6 @@
         <file>imagenes/colorscale_twilight_shifted.jpg</file>
         <file>imagenes/colorscale_viridis.jpg</file>
         <file>imagenes/colorscale_winter.jpg</file>
+        <file>imagenes/arco-iris.png</file>
     </qresource>
 </RCC>

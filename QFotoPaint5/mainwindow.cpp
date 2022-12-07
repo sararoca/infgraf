@@ -29,6 +29,8 @@ using namespace cv;
 #include "ajustecolor.h"
 #include "ecualizar.h"
 #include "colorfalso.h"
+#include "texto.h"
+#include "modelocolor.h"
 
 QString FiltroImagen = "Todos los formatos (*.jpg *.jpeg *.jpe .jp2 *.tif *.tiff *.png *.gif *.bmp *.dib *.webp *.ppm);;Archivos JPG (*.jpg *.jpeg *.jpe);;Archivos TIF (*.tif *.tiff);;Archivos PNG (*.png);;Archivos GIF (*.gif);;Archivos BMP (*.bmp *.dib);;Otros (*.*)";
 
@@ -129,6 +131,12 @@ void MainWindow::on_actionElipse_triggered()
     herr_actual= HER_ELIPSE;
     ui->toolButton_8->setChecked(true);
 }
+
+void MainWindow::on_actionSuavizado_triggered()
+{
+    herr_actual= HER_SUAVIZADO;
+}
+
 void MainWindow::on_toolButton_2_clicked()
 {
     on_actionNueva_imagen_triggered();
@@ -556,3 +564,24 @@ void MainWindow::on_actionEcualizar_histograma_triggered()
         e.exec();
     }
 }
+
+void MainWindow::on_actionTexto_triggered()
+{
+    if (foto_activa()!=-1)
+    {
+        Texto t(foto_activa());
+        t.exec();
+    }
+}
+
+void MainWindow::on_actionModelos_de_color_triggered()
+{
+    if (foto_activa()!=-1)
+    {
+        ModeloColor mc(foto_activa());
+        mc.exec();
+    }
+}
+
+
+
