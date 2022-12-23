@@ -15,6 +15,7 @@ Ajustecolor::Ajustecolor(int numfoto, QWidget *parent) :
     multiplicaG= 1.0;
     sumaR= 0.0;
     multiplicaR= 1.0;
+    ajuste_color(nfoto, sumaB, multiplicaB, sumaG, multiplicaG, sumaR, multiplicaR);
 }
 
 Ajustecolor::~Ajustecolor()
@@ -148,9 +149,10 @@ void Ajustecolor::on_Ajustecolor_accepted()
 {
     actualizarB();
     ajuste_color(nfoto, sumaB, multiplicaB, sumaG, multiplicaG, sumaR, multiplicaR, true);
+    destroyWindow("Ajuste de Color");
 }
 
 void Ajustecolor::on_Ajustecolor_rejected()
 {
-    mostrar(nfoto);
+    destroyWindow("Ajuste de Color");
 }

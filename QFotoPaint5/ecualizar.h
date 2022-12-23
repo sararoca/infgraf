@@ -22,6 +22,8 @@ private slots:
 
     void on_Ecualizar_accepted();
 
+    void on_Ecualizar_rejected();
+
 private:
     Ui::Ecualizar *ui;
     int nfoto;

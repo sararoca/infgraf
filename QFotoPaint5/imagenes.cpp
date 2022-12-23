@@ -1178,11 +1178,14 @@ void ajuste_color(int nfoto, double sumaB, double prodB,double sumaG, double pro
     canales[1].convertTo(canales[1], tipo, prodG, sumaG);
     canales[2].convertTo(canales[2], tipo, prodR, sumaR);
     merge(canales, 3,img);
-    imshow(foto[nfoto].nombre, img);
-        if (guardar) {
-            img.copyTo(foto[nfoto].img);
-            foto[nfoto].modificada= true;
+
+    if (guardar) {
+            crear_nueva(primera_libre(), img);
         }
+        else {
+            imshow("Ajuste de Color", img);
+        }
+
 }
 
 //---------------------------------------------------------------------------
@@ -1196,12 +1199,12 @@ void ecualizar_histograma(int nfoto, bool guardar)
     equalizeHist(gris, res);
     cvtColor(res, res, COLOR_GRAY2BGR);
 
-    imshow(foto[nfoto].nombre, res);
-
     if (guardar) {
-        res.copyTo(foto[nfoto].img);
-        foto[nfoto].modificada= true;
-    }
+            crear_nueva(primera_libre(), res);
+        }
+        else {
+            imshow("Ecualizar histograma", res);
+        }
 }
 
 //---------------------------------------------------------------------------
@@ -1217,12 +1220,13 @@ void ecualizar_histograma_por_canales(int nfoto, bool guardar)
     equalizeHist(canales[1],canales[1]);
     equalizeHist(canales[2],canales[2]);
     merge(canales, 3,img);
-    imshow(foto[nfoto].nombre, img);
 
     if (guardar) {
-        img.copyTo(foto[nfoto].img);
-        foto[nfoto].modificada= true;
-    }
+            crear_nueva(primera_libre(), img);
+        }
+        else {
+            imshow("Ecualizar histograma", img);
+        }
 
 }
 

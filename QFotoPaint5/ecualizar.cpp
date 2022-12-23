@@ -37,6 +37,11 @@ void Ecualizar::on_Ecualizar_accepted()
         ecualizar_histograma_por_canales(nfoto, true);
     }else {
         ecualizar_histograma(nfoto,true);
-
     }
+    destroyWindow("Ecualizar histograma");
+}
+
+void Ecualizar::on_Ecualizar_rejected()
+{
+    destroyWindow("Ecualizar histograma");
 }
