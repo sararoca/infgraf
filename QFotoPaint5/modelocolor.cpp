@@ -148,5 +148,5 @@ void ModeloColor::on_ModeloColor_accepted()
          code = COLOR_YUV2BGR;
     }
 
-    ver_modelos_color(nfoto, code, true);
+    ver_modelos_color(nfoto, code);
 }

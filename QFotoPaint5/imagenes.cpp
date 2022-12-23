@@ -435,7 +435,7 @@ void cb_rectangulo (int factual, int x, int y)
 void cb_ver_rectangulo (int factual, int x, int y)
 {
     Mat res= foto[factual].img.clone();
-    rectangle(res, Point(downx, downy), Point(x,y), color_pincel, radio_pincel*2+1);
+    rectangle(res, Point(downx, downy), Point(x,y), color_pincel, radio_pincel*2-1);
     imshow(foto[factual].nombre, res);
 }
 
@@ -509,7 +509,7 @@ void cb_ver_seleccion (int factual, int x, int y, bool foto_roi)
 
 //---------------------------------------------------------------------------
 
-void cb_suavizado (int factual, int x, int y)
+void cb_suavizado_gaussiano (int factual, int x, int y)
 {
     Mat im= foto[factual].img;  // Ojo: esto no es una copia, sino a la misma imagen
     int tam = radio_pincel*difum_pincel;
@@ -543,9 +543,9 @@ void cb_suavizado (int factual, int x, int y)
     Mat frag = im(roi);
     Mat res;
     frag.copyTo(res);
+    GaussianBlur(res, res, Size(difum_pincel*2-1, difum_pincel*2-1), 0);
     Mat cop(frag.size(), im.type(), CV_RGB(0,0,0));
     circle(cop, Point(posx, posy), radio_pincel, CV_RGB(255,255,255), -1, LINE_AA);
-    GaussianBlur(res, res, Size(difum_pincel*2-1, difum_pincel*2-1), 0);
 
     multiply(res, cop, res, 1.0/255.0);
     bitwise_not(cop, cop);
@@ -556,6 +556,54 @@ void cb_suavizado (int factual, int x, int y)
     foto[factual].modificada= true;
 }
 
+//---------------------------------------------------------------------------
+
+void cb_suavizado_media (int factual, int x, int y)
+{
+    Mat im= foto[factual].img;  // Ojo: esto no es una copia, sino a la misma imagen
+    int tam = radio_pincel*difum_pincel;
+    Rect roi(x-tam, y-tam, 2*tam+1, 2*tam+1);
+    int posx=tam;
+    int posy=tam;
+    if (roi.x<0)
+    {
+        roi.width += roi.x;
+        posx += roi.x;
+        roi.x = 0;
+    }
+
+    if (roi.y < 0)
+    {
+        roi.height += roi.y;
+        posy += roi.y;
+        roi.y = 0;
+    }
+
+    if (roi.x+roi.width > im.cols)
+    {
+        roi.width= im.cols-roi.x;
+    }
+
+    if (roi.y+roi.height > im.rows)
+    {
+        roi.height = im.rows - roi.y;
+    }
+
+    Mat frag = im(roi);
+    Mat res;
+    frag.copyTo(res);
+    blur(res, res, Size(difum_pincel*2-1, difum_pincel*2-1));
+    Mat cop(frag.size(), im.type(), CV_RGB(0,0,0));
+    circle(cop, Point(posx, posy), radio_pincel, CV_RGB(255,255,255), -1, LINE_AA);
+
+    multiply(res, cop, res, 1.0/255.0);
+    bitwise_not(cop, cop);
+    multiply(frag, cop, frag, 1.0/255.0);
+    frag= res + frag;
+
+    imshow(foto[factual].nombre, im);
+    foto[factual].modificada= true;
+}
 
 //---------------------------------------------------------------------------
 
@@ -647,10 +695,17 @@ void callback (int event, int x, int y, int flags, void *_nfoto)
         else
             ninguna_accion_trazos(factual, x, y);
         break;
-        // 2.8. Herramienta
-    case HER_SUAVIZADO:
+        // 2.8. Herramienta SUAVIZADO_GAUSSIANO
+    case HER_SUAVIZADO_GAUSSIANO:
         if (flags==EVENT_FLAG_LBUTTON)
-            cb_suavizado(factual, x, y);
+            cb_suavizado_gaussiano(factual, x, y);
+        else
+            ninguna_accion(factual, x, y);
+        break;
+        // 2.9. Herramienta SUAVIZADO_MEDIA
+    case HER_SUAVIZADO_MEDIA:
+        if (flags==EVENT_FLAG_LBUTTON)
+            cb_suavizado_media(factual, x, y);
         else
             ninguna_accion(factual, x, y);
         break;
@@ -949,46 +1004,6 @@ void ver_pinchar_estirar(int nfoto, int cx, int cy, double radio, double grado, 
 
 //---------------------------------------------------------------------------
 
-//EFECTO DE ONDAS DE AGUA -> habria que añadir fase y frecuencia
-//void ver_pinchar_estirar(int nfoto, int cx, int cy, double radio, double grado, bool guardar)
-//{
-//    // Superficie
-//    Mat S(foto[nfoto].img.rows, foto[nfoto].img.cols, CV_32FC1);
-//    for (int y=0; y < S.rows; y++)
-//    {
-//        for (int x=0; x < S.cols; x++)
-//            S.at<float>(y, x) = sin(sqrt((x-cx)*(x-cx)+(y-cy)*(y-cy))/100.0+radio/100.0);
-//    }
-
-//    Mat Gx, Gy;
-//    Sobel(S, Gx, CV_32F, 1, 0, 3, grado, 0, BORDER_REFLECT);
-//    Sobel(S, Gy, CV_32F, 0, 1, 3, grado, 0, BORDER_REFLECT);
-
-//    multiply(S, Gx, Gx);
-//    multiply(S, Gy, Gy);
-//    for (int y=0; y < S.rows; y++)
-//    {
-//        for (int x=0; x < S.cols; x++)
-//        {
-//            Gx.at<float>(y, x) += x;
-//            Gy.at<float>(y, x) += y;
-//        }
-//    }
-//    Mat res;
-//    remap(foto[nfoto].img, res, Gx, Gy, INTER_LINEAR, BORDER_REFLECT);
-//    imshow("Pinchar/estirar", res);
-
-//    if(guardar)
-//    {
-//        res.copyTo(foto[nfoto].img);
-//        mostrar(nfoto);
-//        foto[nfoto].modificada = true;
-//    }
-
-//}
-
-//---------------------------------------------------------------------------
-
 
 void ver_matiz_saturacion_luminosidad(int nfoto, int matiz, double satu, double lumi, bool guardar)
 {
@@ -1098,10 +1113,9 @@ void copiar_portapapeles (Mat img)
 
 void nueva_portapapeles (int nfoto)
 {
-    const QClipboard *clipboard = QGuiApplication::clipboard();
-    const QMimeData *mimeData = clipboard->mimeData( );
+    QClipboard *clipboard = QGuiApplication::clipboard();
 
-    if (mimeData->hasImage())
+    if (!clipboard->image().isNull())
     {
         QImage imq = clipboard->image();
 
@@ -1109,16 +1123,7 @@ void nueva_portapapeles (int nfoto)
         Mat image(imq.height(), imq.width(), CV_8UC4, imq.scanLine(0));
         cvtColor(image, res, COLOR_RGBA2RGB);
 
-        foto[nfoto].nombre= "nueva-"+to_string(nfoto)+".png";
-        foto[nfoto].nombref= foto[nfoto].nombre;
-        foto[nfoto].img=res;
-        namedWindow(foto[nfoto].nombre, WINDOW_NO_POPUP+WINDOW_MOVE_RIGHT);
-        foto[nfoto].orden= numpos++;
-        imshow(foto[nfoto].nombre, foto[nfoto].img);
-        foto[nfoto].usada= true;
-        foto[nfoto].modificada= true;
-        setMouseCallback(foto[nfoto].nombre, callback, reinterpret_cast<void*>(nfoto));
-        escribir_barra_estado();
+        crear_nueva(nfoto, res);
     }
 
 }
@@ -1229,12 +1234,16 @@ void ver_texto(int nfoto, QString txt, int x, int y, int font, int size, QColor 
 
     Mat img = foto[nfoto].img;
     Mat imres = img.clone();
+    Mat blanco(img.size(), img.type(), Scalar(255,255,255));
     Point pos(x, y);
     double scale = size/21;
     int r,g,b;
     clr.getRgb(&r, &g, &b);
     Scalar color(b,g,r);
-    putText(imres, txt.toLatin1().data(), pos,font,scale,color); //thickness=1, line_type=8, bottomLeftOrigin=false
+    putText(blanco, txt.toLatin1().data(), pos,font,scale,(150,150,150));
+    GaussianBlur(blanco, blanco, Size(11,11), 0);
+    addWeighted(imres, 0.9, blanco, 0.1, 0, imres);
+    putText(imres, txt.toLatin1().data(), pos,font,scale, color); //thickness=1, line_type=8, bottomLeftOrigin=false
     imshow("Previsualizar texto", imres);
 
     if (guardar)
@@ -1248,7 +1257,7 @@ void ver_texto(int nfoto, QString txt, int x, int y, int font, int size, QColor 
 //---------------------------------------------------------------------------
 
 
-void ver_modelos_color(int nfoto, int code, bool guardar)
+void ver_modelos_color(int nfoto, int code)
 {
     Mat src = foto[nfoto].img;
     Mat dst;
@@ -1260,12 +1269,11 @@ void ver_modelos_color(int nfoto, int code, bool guardar)
 
     cvtColor(src, dst, code);
 
-    if (guardar) {
-        crear_nueva(primera_libre(), dst);
-    }
+    crear_nueva(primera_libre(), dst);
 }
 
 //---------------------------------------------------------------------------
+
 void ver_morfologia(int nfoto, int nItera, int modo, bool guardar){
     Mat res;
     Mat element = getStructuringElement(MORPH_RECT,
@@ -1314,4 +1322,3 @@ string Lt1(string cadena)
     return temp.toLatin1().data();
 }
 
-//---------------------------------------------------------------------------

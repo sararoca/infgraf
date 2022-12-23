@@ -213,7 +213,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QToolButton" name="toolButton_4">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>160</x>
       <y>0</y>
       <width>41</width>
       <height>41</height>
@@ -245,7 +245,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QToolButton" name="toolButton_5">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>200</x>
       <y>0</y>
       <width>41</width>
       <height>41</height>
@@ -274,7 +274,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QToolButton" name="toolButton_6">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>400</x>
       <y>0</y>
       <width>41</width>
       <height>41</height>
@@ -319,7 +319,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QToolButton" name="toolButton_7">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>280</x>
       <y>0</y>
       <width>41</width>
       <height>41</height>
@@ -342,7 +342,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QToolButton" name="toolButton_8">
     <property name="geometry">
      <rect>
-      <x>250</x>
+      <x>320</x>
       <y>0</y>
       <width>41</width>
       <height>41</height>
@@ -365,7 +365,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QToolButton" name="toolButton_9">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>360</x>
       <y>0</y>
       <width>41</width>
       <height>41</height>
@@ -388,7 +388,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QToolButton" name="toolButton_10">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>240</x>
       <y>0</y>
       <width>41</width>
       <height>41</height>
@@ -405,6 +405,32 @@ p, li { white-space: pre-wrap; }
      <bool>true</bool>
     </property>
     <property name="autoExclusive">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QToolButton" name="toolButton_11">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>0</y>
+      <width>41</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="recursos.qrc">
+      <normaloff>:/imagenes/portapapeles.png</normaloff>:/imagenes/portapapeles.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>32</width>
+      <height>32</height>
+     </size>
+    </property>
+    <property name="autoRaise">
      <bool>true</bool>
     </property>
    </widget>
@@ -457,26 +483,31 @@ p, li { white-space: pre-wrap; }
     </widget>
     <addaction name="actionSeleccionar_todo"/>
     <addaction name="separator"/>
-    <addaction name="menuOpciones"/>
-    <addaction name="separator"/>
-    <addaction name="separator"/>
     <addaction name="actionCopiar_a_nueva"/>
     <addaction name="actionCopiar_a_portapapeles"/>
     <addaction name="menuVer_histograma"/>
     <addaction name="separator"/>
+    <addaction name="menuOpciones"/>
    </widget>
    <widget class="QMenu" name="menuHerramientas">
     <property name="title">
      <string>Herramientas</string>
     </property>
+    <widget class="QMenu" name="menuSuavizado_2">
+     <property name="title">
+      <string>Suavizado</string>
+     </property>
+     <addaction name="actionGaussiano"/>
+     <addaction name="actionMedia_2"/>
+    </widget>
     <addaction name="actionPunto"/>
     <addaction name="actionLinea"/>
-    <addaction name="actionSeleccionar"/>
+    <addaction name="actionTrazos"/>
     <addaction name="actionRect_ngulo"/>
     <addaction name="actionElipse"/>
     <addaction name="actionArco_Iris"/>
-    <addaction name="actionSuavizado"/>
-    <addaction name="actionTrazos"/>
+    <addaction name="menuSuavizado_2"/>
+    <addaction name="actionSeleccionar"/>
    </widget>
    <widget class="QMenu" name="menuTransformar">
     <property name="title">
@@ -491,17 +522,17 @@ p, li { white-space: pre-wrap; }
      <addaction name="actionRotar_91"/>
      <addaction name="actionOtros"/>
     </widget>
-    <addaction name="actionBrillo_contraste"/>
-    <addaction name="actionMatiz_saturaci_n_luminosidad"/>
-    <addaction name="actionAjuste_de_colores"/>
     <addaction name="actionInvertir"/>
-    <addaction name="menuRotar"/>
-    <addaction name="actionMedia_ponderada"/>
-    <addaction name="actionAjuste_lineal"/>
+    <addaction name="actionBrillo_contraste"/>
+    <addaction name="actionAjuste_de_colores"/>
+    <addaction name="actionMatiz_saturaci_n_luminosidad"/>
     <addaction name="actionEcualizar_histograma"/>
-    <addaction name="actionEscala_de_color"/>
+    <addaction name="actionAjuste_lineal"/>
+    <addaction name="menuRotar"/>
     <addaction name="actionPerspectiva"/>
+    <addaction name="actionEscala_de_color"/>
     <addaction name="actionConvertir_a_color_falso"/>
+    <addaction name="actionMedia_ponderada"/>
     <addaction name="actionModelos_de_color"/>
    </widget>
    <widget class="QMenu" name="menuEfectos">
@@ -627,7 +658,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionBrillo_contraste">
    <property name="text">
-    <string>Brillo/Contraste/gama...</string>
+    <string>Brillo/Contraste/Gama...</string>
    </property>
   </action>
   <action name="actionInvertir">
@@ -777,7 +808,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionNueva_imagen_desde_el_portapapeles">
    <property name="text">
-    <string>Nueva imagen desde el portapapeles...</string>
+    <string>Nueva imagen desde el portapapeles</string>
    </property>
   </action>
   <action name="actionConvertir_a_color_falso">
@@ -797,7 +828,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionInformaci_n_de_imagenes">
    <property name="text">
-    <string>Información de imagenes...</string>
+    <string>Información de imágenes...</string>
    </property>
   </action>
   <action name="actionAjuste_de_colores">
@@ -825,11 +856,6 @@ p, li { white-space: pre-wrap; }
     <string>Copiar a portapapeles</string>
    </property>
   </action>
-  <action name="actionSuavizado">
-   <property name="text">
-    <string>Suavizado</string>
-   </property>
-  </action>
   <action name="actionMorfolog_a">
    <property name="text">
     <string>Morfología...</string>
@@ -838,6 +864,16 @@ p, li { white-space: pre-wrap; }
   <action name="actionTrazos">
    <property name="text">
     <string>Trazos</string>
+   </property>
+  </action>
+  <action name="actionGaussiano">
+   <property name="text">
+    <string>Gaussiano</string>
+   </property>
+  </action>
+  <action name="actionMedia_2">
+   <property name="text">
+    <string>Media</string>
    </property>
   </action>
  </widget>

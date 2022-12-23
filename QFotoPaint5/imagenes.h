@@ -43,7 +43,7 @@ struct ventana {
 //    Enumerado con los distintos tipos posibles de herramientas
 //    que se pueden usar. Añadir nuevas aquí
 
-enum tipo_herramienta {HER_PUNTO, HER_LINEA, HER_SELECCION, HER_RECTANGULO, HER_ELIPSE, HER_ARCOIRIS, HER_TRAZOS, HER_SUAVIZADO};
+enum tipo_herramienta {HER_PUNTO, HER_LINEA, HER_SELECCION, HER_RECTANGULO, HER_ELIPSE, HER_ARCOIRIS, HER_TRAZOS, HER_SUAVIZADO_GAUSSIANO, HER_SUAVIZADO_MEDIA};
 
 
 ///////////////////////////////////////////////////////////////////
@@ -208,7 +208,7 @@ void ecualizar_histograma_por_canales(int nfoto, bool guardar= false);
 
 void ver_texto(int nfoto, QString txt, int x, int y, int font, int size, QColor clr, bool guardar=false);
 
-void ver_modelos_color(int nfoto, int code, bool guardar=false);
+void ver_modelos_color(int nfoto, int code);
 
 void ver_morfologia(int nfoto, int nItera, int modo, bool guardar=false);
 //Aplica las operaciones de formologia matematica durante nItera veces

@@ -54,7 +54,6 @@ private slots:
     void on_actionSeleccionar_triggered();
     void on_actionLinea_triggered();
     void on_actionPunto_triggered();
-    void on_actionRectangulo_triggered();
     void on_actionElipse_triggered();
     void on_actionAbrir_imagen_triggered();
     void on_actionNueva_imagen_triggered();
@@ -89,10 +88,13 @@ private slots:
     void on_actionTexto_triggered();
     void on_actionModelos_de_color_triggered();
     void on_actionCopiar_a_portapapeles_triggered();
-    void on_actionSuavizado_triggered();
     void on_actionMorfolog_a_triggered();
     void on_toolButton_10_clicked();
     void on_actionTrazos_triggered();
+    void on_toolButton_11_clicked();
+    void on_actionRect_ngulo_triggered();
+    void on_actionGaussiano_triggered();
+    void on_actionMedia_2_triggered();
 };
 
 extern MainWindow *w;

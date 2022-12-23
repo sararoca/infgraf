@@ -39,31 +39,15 @@ void Texto::on_spinBox_valueChanged(int arg1)
 
 void Texto::on_spinBox_2_valueChanged(int arg1)
 {
-    if (arg1 >= foto[nfoto].img.cols)
-    {
-       posX = foto[nfoto].img.cols - (texto.length()*10);
-       ui->spinBox_2->setValue(posX);
-    }
-    else
-        posX = arg1;
+    posX = arg1;
     ver_texto(nfoto, texto, posX, posY, fuente, tam, color);
 
 }
 
 void Texto::on_spinBox_4_valueChanged(int arg1)
 {
-    if (arg1 >= foto[nfoto].img.rows)
-    {
-       posY = foto[nfoto].img.rows - texto.size();
-       ui->spinBox_4->setValue(posY);
-    }
-    else if (arg1 <= tam)
-    {
-        posY = tam;
-        ui->spinBox_4->setValue(posY);
-    }
-    else
-        posY = arg1;
+
+    posY = arg1;
     ver_texto(nfoto, texto, posX, posY, fuente, tam, color);
 }
 
