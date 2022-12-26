@@ -1011,7 +1011,6 @@ void ver_matiz_saturacion_luminosidad(int nfoto, int matiz, double satu, double 
     cvtColor(foto[nfoto].img, hls, COLOR_BGR2HLS_FULL);
     Mat canales[3];
     split(hls, canales);
-    canales[0] += matiz;
     canales[0].convertTo(canales[0], CV_16S, 1, matiz);
     bitwise_and(canales[0], 255, canales[0]);
     canales[0].convertTo(canales[0], CV_8U);
